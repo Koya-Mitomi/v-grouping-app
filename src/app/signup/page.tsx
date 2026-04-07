@@ -1,34 +1,32 @@
 'use client';
-import { login } from '@/actions/login';
 import { Form } from '@/components/form';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react'
 import { SubmitHandler } from 'react-hook-form';
 import { Inputs } from '@/components/form';
+import { signUp } from '@/actions/signup';
 
-export const Login = () => {
+export const SignUp = () => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     setIsLoading(true);
-    if (await login(data.email, data.password)) {
-      alert('ログイン成功');
-      router.push('/');
+    if (await signUp(data.user_name!, data.email, data.password)) {
+      alert('メールを確認してください');
+      sessionStorage.setItem('is_send_email', 'true');
+      router.push('/signup/verify');
     } else {
-      alert('ログイン失敗');
+      alert('サインアップ失敗');
     }
     setIsLoading(false);
   }
 
   return (
     <div className="p-10 flex flex-col items-center gap-4">
-      <Form formname='ログイン' fields={['email', 'password']} isLoading={isLoading} onSubmit={onSubmit}></Form>
-      <p>
-        初めての方は <a href="/signup" className="text-blue-500 hover:underline">ここ</a> から新規登録してください。
-      </p>
+      <Form formname='サインアップ' fields={['user_name', 'email', 'password']} isLoading={isLoading} onSubmit={onSubmit}></Form>
     </div>
   )
 };
 
-export default Login;
+export default SignUp;
