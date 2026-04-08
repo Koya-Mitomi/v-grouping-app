@@ -14,7 +14,7 @@ export const ResetPassword = () => {
     setIsLoading(true);
     if (await resetPassword(data.password!)) {
       alert('パスワードのリセットに成功しました');
-      router.push('/login');
+      router.push('/');
     } else {
       alert('パスワードのリセットに失敗しました。');
     }
@@ -24,9 +24,6 @@ export const ResetPassword = () => {
   return (
     <div className="p-10 flex flex-col items-center gap-4">
       <Form formname='新しいパスワードを入力' fields={['password']} isLoading={isLoading} onSubmit={onSubmit}></Form>
-      <p>
-        初めての方は <a href="/signup" className="text-blue-500 hover:underline">ここ</a> から新規登録してください。
-      </p>
     </div>
   )
 };
