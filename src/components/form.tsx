@@ -2,8 +2,8 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 
 export type Inputs = {
   user_name?: string;
-  email: string;
-  password: string;
+  email?: string;
+  password?: string;
 }
 
 export const Form = (props: { formname: string; fields: (keyof Inputs)[]; isLoading: boolean; onSubmit: SubmitHandler<Inputs> }) => {

@@ -10,6 +10,7 @@ export async function signUp(user_name: string, email: string, password: string)
   });
 
   if (signUpError) {
+    console.error('Error signing up:', signUpError);
     return false;
   }
 
@@ -23,6 +24,7 @@ export async function signUp(user_name: string, email: string, password: string)
     });
 
     if (profileError) {
+      console.error('Error creating profile:', profileError);
       return false;
     }
   }
