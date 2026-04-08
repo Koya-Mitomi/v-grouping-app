@@ -29,7 +29,7 @@ export const Form = (props: { formname: string; fields: (keyof Inputs)[]; isLoad
               {errors[field] && <p className='text-red-500 text-sm'>{errors[field]?.message}</p>}
             </div>
           ))}
-          <button type='submit' className="px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:bg-gray-400">
+          <button type='submit' className="px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:bg-gray-400 cursor-pointer">
             {isLoading ? '処理中...' : formname}
           </button>
         </form>

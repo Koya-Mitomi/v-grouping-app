@@ -10,7 +10,6 @@ export async function signUp(user_name: string, email: string, password: string)
   });
 
   if (signUpError) {
-    console.error('Sign-up error:', signUpError);
     return false;
   }
 
