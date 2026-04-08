@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { getLoggedInUser } from "@/actions/getLoggedInUser";
+import { getLoggedInUser } from "@/actions/loginActions/getLoggedInUser";
 import { Header } from "@/components/header";
 
 const geistSans = Geist({
@@ -24,6 +24,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   const user = await getLoggedInUser();
   const isLoggedIn: boolean = !!user;
 

@@ -10,6 +10,7 @@ export async function login(email: string, password: string) {
   });
 
   if (error) {
+    console.error('Error signing in:', error);
     return false;
   }
 

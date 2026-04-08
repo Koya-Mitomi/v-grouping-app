@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react'
 import { SubmitHandler } from 'react-hook-form';
 import { Inputs } from '@/components/form';
-import { signUp } from '@/actions/signup';
+import { signUp } from '@/actions/loginActions/signup';
 
 export const SignUp = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -12,7 +12,7 @@ export const SignUp = () => {
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     setIsLoading(true);
-    if (await signUp(data.user_name!, data.email, data.password)) {
+    if (await signUp(data.user_name!, data.email!, data.password!)) {
       alert('メールを確認してください');
       sessionStorage.setItem('is_send_email', 'true');
       router.push('/signup/verify');
