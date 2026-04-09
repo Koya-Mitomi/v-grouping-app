@@ -17,7 +17,7 @@ export const Login = () => {
       router.refresh();
       router.push('/');
     } else {
-      alert('ログイン失敗');
+      alert('メールアドレスまたはパスワードが正しくありません。');
     }
     setIsLoading(false);
   }
