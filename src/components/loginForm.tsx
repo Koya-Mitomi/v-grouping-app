@@ -1,14 +1,15 @@
+'use client';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
-export type Inputs = {
+export type LoginInputs = {
   user_name?: string;
   email?: string;
   password?: string;
 }
 
-export const Form = (props: { formname: string; fields: (keyof Inputs)[]; isLoading: boolean; onSubmit: SubmitHandler<Inputs> }) => {
+export const LoginForm = (props: { formname: string; fields: (keyof LoginInputs)[]; isLoading: boolean; onSubmit: SubmitHandler<LoginInputs> }) => {
   const { formname, fields, isLoading, onSubmit } = props;
-  const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
+  const { register, handleSubmit, formState: { errors } } = useForm<LoginInputs>();
   return (
     <div className="p-10 flex flex-col items-center gap-4">
       <h1 className="text-2xl font-bold">{formname}</h1>
