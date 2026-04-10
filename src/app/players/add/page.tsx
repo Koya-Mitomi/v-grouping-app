@@ -1,0 +1,41 @@
+'use client';
+
+import { PlayerForm } from "@/components/playerForm";
+import { SubmitHandler } from "react-hook-form";
+import { PlayerInputs } from "@/components/playerForm";
+import { addPlayer } from "@/actions/playerActions/addPlayer";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+
+const defaultValues: PlayerInputs = {
+  name: "",
+  position: "S",
+  level: 1,
+  year: 1,
+  gender: "male",
+}
+
+export const AddPlayer = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+  
+  const onSubmit: SubmitHandler<PlayerInputs> = async (data) => {
+    setIsLoading(true);
+    if (await addPlayer(data)) {
+      alert('プレイヤーが追加されました');
+      router.refresh();
+      router.push('/players');
+    } else {
+      alert('プレイヤーの追加に失敗しました。');
+    }
+    setIsLoading(false);
+  }
+
+  return (
+    <div>
+      <PlayerForm formname="追加" defaults={defaultValues} isLoading={isLoading} onSubmit={onSubmit} />
+    </div>
+  )
+}
+
+export default AddPlayer;
