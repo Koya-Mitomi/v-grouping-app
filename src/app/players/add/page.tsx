@@ -6,6 +6,7 @@ import { PlayerInputs } from "@/types/player";
 import { addPlayer } from "@/actions/playerActions/addPlayer";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { BackButton } from "@/components/backButton";
 
 const defaultValues: PlayerInputs = {
   name: "",
@@ -32,8 +33,9 @@ export const AddPlayer = () => {
   }
 
   return (
-    <div>
+    <div className="flex items-center flex-col gap-4 p-10">
       <PlayerForm formname="追加" defaults={defaultValues} isLoading={isLoading} onSubmit={onSubmit} />
+      <BackButton />
     </div>
   )
 }

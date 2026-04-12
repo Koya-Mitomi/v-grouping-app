@@ -1,6 +1,7 @@
 'use client';
 
 import { findPlayer } from "@/actions/playerActions/findPlayers";
+import { BackButton } from "@/components/backButton";
 import { Player } from "@/types/player";
 import { useEffect, useState } from "react";
 
@@ -44,15 +45,16 @@ export const Players = () => {
               ))
             ) : (
               <tr>
-                <td colSpan={5} className="px-6 py-12 text-center text-gray-500 italic">まだプレイヤーが登録されていません。プレイヤー登録からプレイヤーを追加してください。</td>
+                <td colSpan={5} className="px-6 py-12 text-center text-gray-500 italic">まだプレイヤーが登録されていません。「プレイヤーを追加する」からプレイヤーを追加してください。</td>
               </tr>
             )}
           </tbody>
         </table>
       </div>
       <a href="/players/add" className="px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:bg-gray-400 cursor-pointer text-center">
-        プレイヤー登録
+        プレイヤーを追加する
       </a>
+      <BackButton />
     </div>
   )
 }
