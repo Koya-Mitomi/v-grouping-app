@@ -2,7 +2,7 @@
 
 import { PlayerForm } from "@/components/playerForm";
 import { SubmitHandler } from "react-hook-form";
-import { PlayerInputs } from "@/components/playerForm";
+import { PlayerInputs } from "@/types/player";
 import { addPlayer } from "@/actions/playerActions/addPlayer";
 import { useState } from "react";
 import { useRouter } from "next/navigation";

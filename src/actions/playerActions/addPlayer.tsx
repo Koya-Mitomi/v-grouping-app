@@ -1,6 +1,6 @@
 'use server';
 import { createSupabaseServerClient } from '@/lib/supabase/server';
-import { PlayerInputs } from '@/components/playerForm';
+import { PlayerInputs } from '@/types/player';
 
 export async function addPlayer(playerData: PlayerInputs) {
   const supabase = await createSupabaseServerClient();
@@ -19,7 +19,7 @@ export async function addPlayer(playerData: PlayerInputs) {
     const { error: addPlayerError } = await supabase.from('players').insert({
       user_id: user.id,
       name: playerData.name,
-      grade: playerData.year,
+      year: playerData.year,
       level: playerData.level,
       position: playerData.position,
       gender: gender,
