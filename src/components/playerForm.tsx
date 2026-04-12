@@ -1,13 +1,6 @@
 'use client';
 import { SubmitHandler, useForm } from 'react-hook-form';
-
-export type PlayerInputs = {
-  name: string;
-  position: string;
-  level: number;
-  year: number;
-  gender: string;
-}
+import { PlayerInputs } from '@/types/player';
 
 const positions: { label: string; value: string }[] = [
   { label: 'セッター（S）', value: 'S' },
