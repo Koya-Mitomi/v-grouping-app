@@ -1,6 +1,6 @@
 'use client';
 
-import { findPlayer } from "@/actions/playerActions/findPlayers";
+import { findAllPlayers } from "@/actions/playerActions/findPlayers";
 import { BackButton } from "@/components/backButton";
 import { Player } from "@/types/player";
 import { useEffect, useState } from "react";
@@ -9,7 +9,7 @@ export const Players = () => {
   const [playerList, setPlayerList] = useState<Player[] | "loading">("loading");
 
   useEffect(() => {
-    findPlayer().then((players) => {
+    findAllPlayers().then((players) => {
       setPlayerList(players);
     });
   }, []);
