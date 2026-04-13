@@ -2,7 +2,7 @@
 import { createSupabaseServerClient } from '@/lib/supabase/server';
 import { Player } from '@/types/player';
 
-export async function findPlayer() {
+export async function findAllPlayers() {
   const supabase = await createSupabaseServerClient();
 
   const { data } = await supabase.auth.getUser();
@@ -12,10 +12,10 @@ export async function findPlayer() {
   const players: Player[] = [];
 
   if (user) {
-    const { data, error: findPlayerError } = await supabase.from('players').select('*').eq('user_id', user.id);
+    const { data, error: findAllPlayersError } = await supabase.from('players').select('*').eq('user_id', user.id);
 
-    if (findPlayerError) {
-      console.error('Error finding player:', findPlayerError);
+    if (findAllPlayersError) {
+      console.error('Error finding player:', findAllPlayersError);
       return players;
     }
 
