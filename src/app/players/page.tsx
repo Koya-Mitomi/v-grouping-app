@@ -32,7 +32,7 @@ export const Players = async () => {
                   <td className="px-6 py-4 text-sm text-gray-600">{player.year}</td>
                   <td className="px-6 py-4 text-sm text-gray-600">{player.gender}</td>
                   <td className="px-6 py-4">
-                    <a href={`/players/edit/${player.id}`} className="text-blue-500 hover:text-blue-700">
+                    <a href={`/players/edit/${player.id}`} className="text-blue-500 cursor-pointer hover:text-blue-700">
                       編集
                     </a>
                   </td>
