@@ -1,18 +1,18 @@
-'use client';
+'use server';
 
 import { findAllPlayers } from "@/actions/playerActions/findPlayers";
 import { BackButton } from "@/components/backButton";
+import { DeleteButton } from "@/components/deleteButton";
 import { Player } from "@/types/player";
-import { useEffect, useState } from "react";
 
-export const Players = () => {
-  const [playerList, setPlayerList] = useState<Player[] | "loading">("loading");
+export const Players = async () => {
+  const playerList: Player[] = await findAllPlayers();
 
-  useEffect(() => {
-    findAllPlayers().then((players) => {
-      setPlayerList(players);
-    });
-  }, []);
+  const onClickDelete = async (id: number) => {
+    if (confirm('本当にこのプレイヤーを削除しますか？')) {
+      console.log('delete');
+    }
+  }
 
   return (
     <div className="p-10 flex flex-col items-center gap-4">
@@ -26,14 +26,11 @@ export const Players = () => {
               <th className="px-6 py-4 text-sm font-semibold text-gray-600">レベル</th>
               <th className="px-6 py-4 text-sm font-semibold text-gray-600">学年</th>
               <th className="px-6 py-4 text-sm font-semibold text-gray-600">性別</th>
+              <th colSpan={2} className="px-6 py-4 text-sm text-center font-semibold text-gray-600">編集 / 削除</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-100">
-            {playerList === "loading" ? (
-              <tr>
-                <td colSpan={5} className="px-6 py-10 text-center text-gray-400 animate-pulse">プレイヤーを読み込んでいます...</td>
-              </tr>
-            ) : playerList.length > 0 ? (
+            {playerList.length > 0 ? (
               playerList.map((player) => (
                 <tr key={player.id} className="transition-colors">
                   <td className="px-6 py-4 text-sm font-medium text-gray-900">{player.name}</td>
@@ -41,11 +38,19 @@ export const Players = () => {
                   <td className="px-6 py-4 text-sm text-gray-600">{player.level}</td>
                   <td className="px-6 py-4 text-sm text-gray-600">{player.year}</td>
                   <td className="px-6 py-4 text-sm text-gray-600">{player.gender}</td>
+                  <td className="px-6 py-4">
+                    <a href={`/players/edit/${player.id}`} className="text-blue-500 cursor-pointer hover:text-blue-700">
+                      編集
+                    </a>
+                  </td>
+                  <td className="px-6 py-4">
+                    <DeleteButton id={player.id} name={player.name} />
+                  </td>
                 </tr>
               ))
             ) : (
               <tr>
-                <td colSpan={5} className="px-6 py-12 text-center text-gray-500 italic">まだプレイヤーが登録されていません。「プレイヤーを追加する」からプレイヤーを追加してください。</td>
+                <td colSpan={6} className="px-6 py-12 text-center text-gray-500 italic">まだプレイヤーが登録されていません。「プレイヤーを追加する」からプレイヤーを追加してください。</td>
               </tr>
             )}
           </tbody>
@@ -54,7 +59,7 @@ export const Players = () => {
       <a href="/players/add" className="px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:bg-gray-400 cursor-pointer text-center">
         プレイヤーを追加する
       </a>
-      <BackButton />
+      <BackButton path="/" />
     </div>
   )
 }

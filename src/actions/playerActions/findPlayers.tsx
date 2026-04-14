@@ -1,4 +1,5 @@
 'use server';
+import { mapDbGenderToPlayerGender, mapDbPositionToPlayerPosition } from '@/lib/functions/playerMapping';
 import { createSupabaseServerClient } from '@/lib/supabase/server';
 import { Player } from '@/types/player';
 
@@ -20,32 +21,8 @@ export async function findAllPlayers() {
     }
 
     data.forEach((player_raw) => {
-      var position: "セッター" | "レフト" | "ライト" | "センター" | "リベロ" | "未定" = "未定";
-      var gender: "男性" | "女性" = "男性";
-
-      switch (player_raw.position) {
-        case 'S':
-          position = "セッター";
-          break;
-        case 'OH':
-          position = "レフト";
-          break;
-        case 'OP':
-          position = "ライト";
-          break;
-        case 'MB':
-          position = "センター";
-          break;
-        case 'L':
-          position = "リベロ";
-          break;
-        default:
-          position = "未定";
-      }
-
-      if (player_raw.gender === false) {
-        gender = "女性";
-      }
+      const position = mapDbPositionToPlayerPosition(player_raw.position);
+      const gender = mapDbGenderToPlayerGender(player_raw.gender);
 
       players.push({
         id: player_raw.id,
@@ -65,4 +42,43 @@ export async function findAllPlayers() {
   }
 
   return players;
+}
+
+export async function findPlayerById(id: number) {
+  const supabase = await createSupabaseServerClient();
+
+  const { data } = await supabase.auth.getUser();
+
+  const user = data.user;
+
+  if (user) {
+    const { data, error: findPlayerByIdError } = await supabase.from('players').select('*').eq('user_id', user.id).eq('id', id).single();
+
+    if (findPlayerByIdError) {
+      console.error('Error finding player:', findPlayerByIdError);
+      return null;
+    }
+
+    if (!data) {
+      console.error('Player not found');
+      return null;
+    }
+
+    const position = mapDbPositionToPlayerPosition(data.position);
+    const gender = mapDbGenderToPlayerGender(data.gender);
+
+    return {
+      id: data.id,
+      user_id: data.user_id,
+      name: data.name,
+      position: position,
+      level: data.level,
+      year: data.year,
+      gender: gender,
+      is_active: data.is_active
+    };
+  } else {
+    console.error('No user found');
+    return null;
+  }
 }

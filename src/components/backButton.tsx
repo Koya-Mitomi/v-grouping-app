@@ -1,15 +1,11 @@
 'use client';
 import { useRouter } from 'next/navigation';
 
-export const BackButton = () => {
+export const BackButton = (props: { path: string }) => {
   const router = useRouter();
 
   const handleClickBack = () => {
-    if (typeof window !== "undefined" && window.history.length > 1) {
-      router.back();
-    } else {
-      router.replace("/");
-    }
+    router.replace(props.path);
   }
   return (
   <div className="inline-block">
