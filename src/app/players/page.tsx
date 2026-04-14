@@ -2,10 +2,17 @@
 
 import { findAllPlayers } from "@/actions/playerActions/findPlayers";
 import { BackButton } from "@/components/backButton";
+import { DeleteButton } from "@/components/deleteButton";
 import { Player } from "@/types/player";
 
 export const Players = async () => {
   const playerList: Player[] = await findAllPlayers();
+
+  const onClickDelete = async (id: number) => {
+    if (confirm('本当にこのプレイヤーを削除しますか？')) {
+      console.log('delete');
+    }
+  }
 
   return (
     <div className="p-10 flex flex-col items-center gap-4">
@@ -19,7 +26,7 @@ export const Players = async () => {
               <th className="px-6 py-4 text-sm font-semibold text-gray-600">レベル</th>
               <th className="px-6 py-4 text-sm font-semibold text-gray-600">学年</th>
               <th className="px-6 py-4 text-sm font-semibold text-gray-600">性別</th>
-              <th></th>
+              <th colSpan={2} className="px-6 py-4 text-sm text-center font-semibold text-gray-600">編集 / 削除</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-100">
@@ -36,6 +43,9 @@ export const Players = async () => {
                       編集
                     </a>
                   </td>
+                  <td className="px-6 py-4">
+                    <DeleteButton id={player.id} name={player.name} />
+                  </td>
                 </tr>
               ))
             ) : (
@@ -49,7 +59,7 @@ export const Players = async () => {
       <a href="/players/add" className="px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:bg-gray-400 cursor-pointer text-center">
         プレイヤーを追加する
       </a>
-      <BackButton />
+      <BackButton path="/" />
     </div>
   )
 }
