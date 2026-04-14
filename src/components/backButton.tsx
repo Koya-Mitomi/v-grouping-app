@@ -2,10 +2,11 @@
 import { useRouter } from 'next/navigation';
 
 export const BackButton = (props: { path: string }) => {
+  const { path } = props;
   const router = useRouter();
 
   const handleClickBack = () => {
-    router.replace(props.path);
+    router.replace(path);
   }
   return (
   <div className="inline-block">

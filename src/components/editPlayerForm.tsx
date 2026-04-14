@@ -9,11 +9,12 @@ import { BackButton } from "@/components/backButton";
 import { editPlayer } from "@/actions/playerActions/editPlayer";
 
 export const EditPlayerForm = (props: { playerId: number; formname: string; defaults: PlayerInputs}) => {
+  const { playerId, formname, defaults } = props;
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const onSubmit: SubmitHandler<PlayerInputs> = async (data) => {
     setIsLoading(true);
-    if (await editPlayer(data, props.playerId)) {
+    if (await editPlayer(data, playerId)) {
       alert('プレイヤーが編集されました');
       router.refresh();
       router.push('/players');
@@ -25,7 +26,7 @@ export const EditPlayerForm = (props: { playerId: number; formname: string; defa
 
   return (
     <div className="flex items-center flex-col gap-4 p-10">
-      <PlayerForm formname={props.formname} defaults={props.defaults} isLoading={isLoading} onSubmit={onSubmit} />
+      <PlayerForm formname={formname} defaults={defaults} isLoading={isLoading} onSubmit={onSubmit} />
       <BackButton path="/players" />
     </div>
   )
