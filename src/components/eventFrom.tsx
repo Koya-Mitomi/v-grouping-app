@@ -13,11 +13,11 @@ export const EventForm = (props: {formname: string; defaults: EventInputs; isLoa
         <div className='flex flex-col items-center w-full'>
           <input 
             type="text" 
-            placeholder="タイトル" 
+            placeholder="イベント名" 
             {...defaults.title && { defaultValue: defaults.title }}
             className="border p-2 rounded w-64" 
-            {...register("title", { required: { value: true, message: "タイトルは必須です" },
-              pattern: { value: /^[^\s]+$/, message: 'そのタイトルは無効です' } })}
+            {...register("title", { required: { value: true, message: "イベント名は必須です" },
+              pattern: { value: /^[^\s]+$/, message: 'そのイベント名は無効です' } })}
           />
           {errors.title && <p className='text-red-500 text-sm'>{errors.title?.message}</p>}
         </div>
