@@ -4,7 +4,7 @@ import { LoginForm } from '@/components/loginForm';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react'
 import { SubmitHandler } from 'react-hook-form';
-import { LoginInputs } from '@/components/loginForm';
+import { LoginInputs } from '@/types/login';
 
 export const Login = () => {
   const [isLoading, setIsLoading] = useState(false);

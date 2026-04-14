@@ -3,7 +3,7 @@ import { LoginForm } from '@/components/loginForm';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react'
 import { SubmitHandler } from 'react-hook-form';
-import { LoginInputs } from '@/components/loginForm';
+import { LoginInputs } from '@/types/login';
 import { signUp } from '@/actions/loginActions/signup';
 
 export const SignUp = () => {

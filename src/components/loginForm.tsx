@@ -1,11 +1,6 @@
 'use client';
 import { SubmitHandler, useForm } from 'react-hook-form';
-
-export type LoginInputs = {
-  user_name?: string;
-  email?: string;
-  password?: string;
-}
+import { LoginInputs } from '@/types/login';
 
 export const LoginForm = (props: { formname: string; fields: (keyof LoginInputs)[]; isLoading: boolean; onSubmit: SubmitHandler<LoginInputs> }) => {
   const { formname, fields, isLoading, onSubmit } = props;
