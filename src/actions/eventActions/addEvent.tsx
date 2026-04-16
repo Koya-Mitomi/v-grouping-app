@@ -9,20 +9,28 @@ export async function addEvent(eventData: EventInputs) {
 
   const user = data.user;
 
+  var eventId: number | null = null;
+
   if (user) {
-    const { error: addEventError } = await supabase.from('events').insert({
+    const { data, error: addEventError } = await supabase.from('events').insert({
       user_id: user.id,
       title: eventData.title,
-    });
+    }).select().single();
 
     if (addEventError) {
       console.error('Error adding event:', addEventError);
-      return false;
+      return null;
     }
+    if (!data) {
+      console.error('Error adding event: No data returned');
+      return null;
+    }
+
+    eventId = data.id;
   } else {
     console.error('No user found');
-    return false;
+    return null;
   }
 
-  return true;
+  return eventId;
 }
