@@ -2,17 +2,11 @@
 
 import { findAllPlayers } from "@/actions/playerActions/findPlayers";
 import { BackButton } from "@/components/backButton";
-import { DeleteButton } from "@/components/deleteButton";
+import { DeletePlayerButton } from "@/components/deletePlayerButton";
 import { Player } from "@/types/player";
 
 export const Players = async () => {
   const playerList: Player[] = await findAllPlayers();
-
-  const onClickDelete = async (id: number) => {
-    if (confirm('本当にこのプレイヤーを削除しますか？')) {
-      console.log('delete');
-    }
-  }
 
   return (
     <div className="p-10 flex flex-col items-center gap-4">
@@ -44,7 +38,7 @@ export const Players = async () => {
                     </a>
                   </td>
                   <td className="px-6 py-4">
-                    <DeleteButton id={player.id} name={player.name} />
+                    <DeletePlayerButton id={player.id} name={player.name} />
                   </td>
                 </tr>
               ))

@@ -1,6 +1,7 @@
 'use client';
 
 import { addEvent } from "@/actions/eventActions/addEvent";
+import { BackButton } from "@/components/backButton";
 import EventForm from "@/components/eventFrom";
 import { EventInputs } from "@/types/event";
 import { useRouter } from "next/navigation";
@@ -13,10 +14,11 @@ export const AddEvent = () => {
   
   const onSubmit: SubmitHandler<EventInputs> = async (data) => {
     setIsLoading(true);
-    if (await addEvent(data)) {
+    const eventId: number | null = await addEvent(data);
+    if (eventId !== null) {
       alert('イベントが追加されました');
       router.refresh();
-      router.push('/events');
+      router.push(`/events/${eventId}`);
     } else {
       alert('イベントの追加に失敗しました。');
     }
@@ -24,7 +26,10 @@ export const AddEvent = () => {
   }
 
   return (
-    <EventForm formname="イベントを作成" defaults={{ title: "" }} isLoading={isLoading} onSubmit={onSubmit} />
+    <div className="p-10 flex flex-col items-center gap-4">
+      <EventForm formname="イベントを作成" defaults={{ title: "" }} isLoading={isLoading} onSubmit={onSubmit} />
+      <BackButton path="/events" />
+    </div>
   )
 }
 
