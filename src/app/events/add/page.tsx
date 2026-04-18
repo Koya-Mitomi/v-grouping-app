@@ -28,7 +28,7 @@ export const AddEvent = () => {
   return (
     <div className="p-10 flex flex-col items-center gap-4">
       <EventForm formname="イベントを作成" defaults={{ title: "" }} isLoading={isLoading} onSubmit={onSubmit} />
-      <BackButton path="/events" />
+      <BackButton path="/events" message="キャンセル" />
     </div>
   )
 }

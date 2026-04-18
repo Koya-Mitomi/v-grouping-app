@@ -53,7 +53,7 @@ export const Players = async () => {
       <a href="/players/add" className="px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:bg-gray-400 cursor-pointer text-center">
         プレイヤーを追加する
       </a>
-      <BackButton path="/" />
+      <BackButton path="/" message="戻る" />
     </div>
   )
 }
