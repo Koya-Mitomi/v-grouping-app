@@ -1,6 +1,7 @@
 'use server';
 
 import { findEventById } from "@/actions/eventActions/findEvents";
+import { EventTitle } from "@/components/eventTitle";
 
 export const DisplayEvent = async ({ params }: { params: Promise<{ id: string }> }) => {
   const resolvedParams = await params;
@@ -12,7 +13,7 @@ export const DisplayEvent = async ({ params }: { params: Promise<{ id: string }>
   }
 
   return (
-    <div>{event?.title}</div>
+    <EventTitle eventId={event.id} initialTitle={event.title} />
   )
 }
 
