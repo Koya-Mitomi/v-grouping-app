@@ -15,11 +15,11 @@ export const Players = async () => {
         <table className="w-full text-left border-collapse">
           <thead className="bg-gray-50 border-b border-gray-200">
             <tr>
-              <th className="px-6 py-4 text-sm font-semibold text-gray-600">名前</th>
-              <th className="px-6 py-4 text-sm font-semibold text-gray-600">ポジション</th>
-              <th className="px-6 py-4 text-sm font-semibold text-gray-600">レベル</th>
-              <th className="px-6 py-4 text-sm font-semibold text-gray-600">学年</th>
-              <th className="px-6 py-4 text-sm font-semibold text-gray-600">性別</th>
+              <th className="px-6 py-4 text-sm text-center font-semibold text-gray-600">名前</th>
+              <th className="px-6 py-4 text-sm text-center font-semibold text-gray-600">ポジション</th>
+              <th className="px-6 py-4 text-sm text-center font-semibold text-gray-600">レベル</th>
+              <th className="px-6 py-4 text-sm text-center font-semibold text-gray-600">学年</th>
+              <th className="px-6 py-4 text-sm text-center font-semibold text-gray-600">性別</th>
               <th colSpan={2} className="px-6 py-4 text-sm text-center font-semibold text-gray-600">編集 / 削除</th>
             </tr>
           </thead>
@@ -27,11 +27,11 @@ export const Players = async () => {
             {playerList.length > 0 ? (
               playerList.map((player) => (
                 <tr key={player.id} className="transition-colors">
-                  <td className="px-6 py-4 text-sm font-medium text-gray-900">{player.name}</td>
-                  <td className="px-6 py-4 text-sm text-gray-600">{player.position}</td>
-                  <td className="px-6 py-4 text-sm text-gray-600">{player.level}</td>
-                  <td className="px-6 py-4 text-sm text-gray-600">{player.year}</td>
-                  <td className="px-6 py-4 text-sm text-gray-600">{player.gender}</td>
+                  <td className="px-6 py-4 text-sm text-center font-medium text-gray-900">{player.name}</td>
+                  <td className="px-6 py-4 text-sm text-center text-gray-600">{player.position}</td>
+                  <td className="px-6 py-4 text-sm text-center text-gray-600">{player.level}</td>
+                  <td className="px-6 py-4 text-sm text-center text-gray-600">{player.year}</td>
+                  <td className="px-6 py-4 text-sm text-center text-gray-600">{player.gender}</td>
                   <td className="px-6 py-4">
                     <a href={`/players/edit/${player.id}`} className="text-blue-500 cursor-pointer hover:text-blue-700">
                       編集
