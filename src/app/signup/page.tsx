@@ -25,7 +25,7 @@ export const SignUp = () => {
   return (
     <div className="p-10 flex flex-col items-center gap-4">
       <LoginForm formname='サインアップ' fields={['user_name', 'email', 'password']} isLoading={isLoading} onSubmit={onSubmit}></LoginForm>
-      <p> すでにアカウントをお持ちの方は <a href="/login" className="text-blue-500 hover:underline">こちら</a> からログインしてください。</p>
+      <p> すでにアカウントをお持ちの方は <a href="/login" className="text-blue-500 hover:underline">ここ</a> からログインしてください。</p>
     </div>
   )
 };

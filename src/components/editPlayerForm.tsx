@@ -27,7 +27,7 @@ export const EditPlayerForm = (props: { playerId: number; formname: string; defa
   return (
     <div className="flex items-center flex-col gap-4 p-10">
       <PlayerForm formname={formname} defaults={defaults} isLoading={isLoading} onSubmit={onSubmit} />
-      <BackButton path="/players" />
+      <BackButton path="/players" message="キャンセル" />
     </div>
   )
 }

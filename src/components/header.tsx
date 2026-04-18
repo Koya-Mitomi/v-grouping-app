@@ -2,14 +2,17 @@
 import { useEffect, useState } from "react";
 import { getLoggedInUser } from "@/actions/loginActions/getLoggedInUser";
 import { logout } from "@/actions/loginActions/logout";
+import { useRouter } from "next/navigation";
 
 export const Header = ({user_state}: { user_state: boolean }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(user_state);
+  const router = useRouter();
 
   const onClickLogoutButton = async () => {
     if (await logout()) {
       alert('ログアウトしました');
       setIsLoggedIn(false);
+      router.push('/');
     } else {
       alert('ログアウトに失敗しました');
     }
