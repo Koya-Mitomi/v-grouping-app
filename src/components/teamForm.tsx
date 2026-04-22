@@ -2,18 +2,19 @@
 import { Player } from '@/types/player';
 import { BackButton } from './backButton';
 import { submitTeam } from '@/actions/teamActions/submitTeam';
+import { TeamNameLink } from './teamNameLink';
 
 export const TeamForm = async (props: { eventId: number; defaultValues: { teamName: string; teamMembers: Player[] } }) => {
   const { eventId, defaultValues } = props;
-  let add_members_url = `/events/${eventId}/addTeam/addMembers?teamName=${defaultValues.teamName}&memberIds=${defaultValues.teamMembers.map(member => member.id).join(',')}`;
+  const memberIds = defaultValues.teamMembers.map(member => member.id).join(',');
 
   return (
     <div>
       <div className="p-10 flex flex-col items-center gap-4">
         <form action={submitTeam} className="p-10 flex flex-col items-center gap-4">
-          <input type="text" name='teamName' placeholder="チーム名を入力" defaultValue={defaultValues.teamName} className="w-fit max-w-full min-w-120 rounded border p-2 text-center" />
+          <TeamNameLink initialTeamName={defaultValues.teamName} eventId={eventId} memberIds={memberIds.split(',').map(str => parseInt(str, 10))} />
           <input type="hidden" name='eventId' value={eventId} />
-          <input type="hidden" name="memberIds" value={defaultValues.teamMembers.map(member => member.id).join(',')} />
+          <input type="hidden" name="memberIds" value={memberIds} />
           <div className="overflow-hidden rounded-xl border border-gray-200 shadow-sm bg-white">
             <table className="w-full text-left border-collapse">
               <thead className="bg-gray-50 border-b border-gray-200">
@@ -51,12 +52,6 @@ export const TeamForm = async (props: { eventId: number; defaultValues: { teamNa
               </tbody>
             </table>
           </div>
-          <a
-            href={add_members_url}
-            className="px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:bg-gray-400 cursor-pointer text-center"
-          >
-            チームメンバー編集
-          </a>
           <button type="submit" className="px-6 py-2 bg-green-500 text-white rounded hover:bg-green-600 disabled:bg-gray-400 cursor-pointer text-center">
             保存
           </button>

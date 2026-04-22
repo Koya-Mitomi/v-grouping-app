@@ -12,11 +12,11 @@ export async function submitTeam(formData: FormData) {
   const nameRegex = /^[^\s]+$/;
   
   if (!teamName) {
-    redirect(`/events/${eventId}?error=${encodeURIComponent('チーム名は必須です')}`);
+    redirect(`/events/${eventId}?message=${encodeURIComponent('チーム名は必須です')}`);
   }
   
   if (!nameRegex.test(teamName)) {
-    redirect(`/events/${eventId}?error=${encodeURIComponent('無効なチーム名です')}`);
+    redirect(`/events/${eventId}?message=${encodeURIComponent('無効なチーム名です')}`);
   }
 
   if (await upsertTeam(eventId, teamName, memberIds)) {
