@@ -6,7 +6,7 @@ import { AddTeamMember } from './addTeamMember';
 
 export const TeamForm = (props: { eventId: number; defaultValues?: { teamName: string; teamMembers: Player[] } }) => {
   const { eventId, defaultValues } = props;
-  var teamInfo: { teamName: string; teamMembers: Player[] } | null = null;
+  let teamInfo: { teamName: string; teamMembers: Player[] } | null = null;
   if (defaultValues) {
     teamInfo = { ...defaultValues };
   }
@@ -65,7 +65,7 @@ export const TeamForm = (props: { eventId: number; defaultValues?: { teamName: s
                     <button className="text-red-600 hover:text-red-900">削除</button>
                   </td>
                 </tr>
-              )) : isLoading ? 
+              )) : isLoading ?
               <tr>
                 <td colSpan={7} className="px-6 py-4 text-sm text-gray-500 text-center">
                   読み込み中...
@@ -81,7 +81,7 @@ export const TeamForm = (props: { eventId: number; defaultValues?: { teamName: s
             </tbody>
           </table>
         </div>
-        <button 
+        <button
           className="px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:bg-gray-400 cursor-pointer text-center"
           onClick={onClickButton}
         >

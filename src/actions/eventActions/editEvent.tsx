@@ -8,7 +8,7 @@ export async function editEventTitle(id: number, title: string) {
 
   const user = data.user;
 
-  var gender: boolean = true;
+  let gender: boolean = true;
 
   if (user) {
     const { error: editEventError } = await supabase.from('events').update({
