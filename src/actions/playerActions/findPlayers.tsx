@@ -2,6 +2,8 @@
 import { mapDbGenderToPlayerGender, mapDbPositionToPlayerPosition } from '@/lib/functions/playerMapping';
 import { createSupabaseServerClient } from '@/lib/supabase/server';
 import { Player } from '@/types/player';
+import { TeamMember } from '@/types/team';
+import { findTeamMembersByTeamId } from '../teamActions/findTeams';
 
 export async function findAllPlayers() {
   const supabase = await createSupabaseServerClient();
@@ -92,5 +94,15 @@ export async function getPlayersByIds(ids: number[]) {
       if (player) players.push(player);
     })
   );
+  return players;
+}
+
+export async function findPlayersByTeamId(teamId: number) {
+  const players: Player[] = [];
+
+  const teamMembers: TeamMember[] = await findTeamMembersByTeamId(teamId);
+  const playerIds: number[] = teamMembers.map(member => member.player_id);
+  players.push(...await getPlayersByIds(playerIds));
+
   return players;
 }
