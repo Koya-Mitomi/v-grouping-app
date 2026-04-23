@@ -1,6 +1,7 @@
 'use client';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { PlayerInputs } from '@/types/player';
+import { SubmitButton } from './submitButton';
 
 const positions: { label: string; value: string }[] = [
   { label: 'セッター（S）', value: 'S' },
@@ -106,9 +107,7 @@ export const PlayerForm = (props: { formname: string; defaults: PlayerInputs; is
               {errors.gender && <p className="text-red-500 text-sm">{errors.gender.message}</p>}
             </div>
           </div>
-           <button type='submit' className="px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:bg-gray-400 cursor-pointer">
-             {isLoading ? '処理中...' : formname}
-           </button>
+           <SubmitButton label={formname} isLoading={isLoading} className="px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:bg-gray-400 disabled:cursor-not-allowed cursor-pointer" />
         </form>
     </div>
   )

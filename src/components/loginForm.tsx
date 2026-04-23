@@ -1,6 +1,7 @@
 'use client';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { LoginInputs } from '@/types/login';
+import { SubmitButton } from './submitButton';
 
 export const LoginForm = (props: { formname: string; fields: (keyof LoginInputs)[]; isLoading: boolean; onSubmit: SubmitHandler<LoginInputs> }) => {
   const { formname, fields, isLoading, onSubmit } = props;
@@ -25,9 +26,7 @@ export const LoginForm = (props: { formname: string; fields: (keyof LoginInputs)
               {errors[field] && <p className='text-red-500 text-sm'>{errors[field]?.message}</p>}
             </div>
           ))}
-          <button type='submit' className="px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:bg-gray-400 cursor-pointer">
-            {isLoading ? '処理中...' : formname}
-          </button>
+          <SubmitButton label={formname} isLoading={isLoading} className="px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:bg-gray-400 disabled:cursor-not-allowed cursor-pointer" />
         </form>
     </div>
   )

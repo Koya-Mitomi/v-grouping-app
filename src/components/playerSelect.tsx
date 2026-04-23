@@ -2,6 +2,7 @@
 
 import { Player } from "@/types/player";
 import { useState } from "react";
+import { SubmitButton } from "./submitButton";
 
 export const PlayerSelect = (props: { initialSelectedIds: number[]; players: Player[]; onConfirm: (selectedIds: number[]) => void }) => {
   const { initialSelectedIds, players, onConfirm } = props;
@@ -68,11 +69,7 @@ export const PlayerSelect = (props: { initialSelectedIds: number[]; players: Pla
             </tbody>
           </table>
         </div>
-        <button type="submit"
-          className="h-8 px-3 text-sm font-medium text-white bg-blue-500 border border-blue-300 rounded-md shadow-sm hover:bg-blue-600 active:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-offset-1 transition-colors cursor-pointer"
-        >
-          確定
-        </button>
+        <SubmitButton label="確定" className="h-8 px-3 text-sm font-medium text-white bg-blue-500 border border-blue-300 rounded-md shadow-sm hover:bg-blue-600 active:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-offset-1 transition-colors cursor-pointer disabled:bg-gray-400 disabled:cursor-not-allowed" />
       </div>
     </form>
   )

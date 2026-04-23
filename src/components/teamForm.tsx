@@ -2,6 +2,7 @@
 import { Player } from '@/types/player';
 import { submitTeam } from '@/actions/teamActions/submitTeam';
 import { TeamNameLink } from './teamNameLink';
+import { SubmitButton } from './submitButton';
 
 export const TeamForm = async (props: { eventId: number; defaultValues: { teamName: string; teamMembers: Player[] }; teamId: number | null }) => {
   const { eventId, defaultValues, teamId } = props;
@@ -50,9 +51,7 @@ export const TeamForm = async (props: { eventId: number; defaultValues: { teamNa
               </tbody>
             </table>
           </div>
-          <button type="submit" className="px-6 py-2 bg-green-500 text-white rounded hover:bg-green-600 disabled:bg-gray-400 cursor-pointer text-center">
-            保存
-          </button>
+          <SubmitButton label="保存" className="px-6 py-2 bg-green-500 text-white rounded hover:bg-green-600 cursor-pointer disabled:bg-gray-400 disabled:cursor-not-allowed text-center transition-colors" />
         </form>
       </div>
     </div>
