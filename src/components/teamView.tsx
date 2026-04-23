@@ -3,13 +3,14 @@
 import { Player } from "@/types/player";
 
 export const TeamView = (props: { teamName: string; teamMembers: Player[] }) => {
+  const { teamName, teamMembers } = props;
   return (
-    <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl border border-blue-200 shadow-lg p-6 w-80 h-96 flex flex-col">
-      <h2 className="text-2xl font-bold text-center text-gray-800 mb-6 pb-4 border-b-2 border-blue-300 truncate">{props.teamName}</h2>
+    <div className="from-blue-50 to-indigo-50 rounded-xl border border-blue-200 shadow-lg p-6 w-80 h-96 flex flex-col">
+      <h2 className="text-2xl font-bold text-center text-gray-800 mb-6 pb-4 border-b-2 border-blue-300 truncate">{teamName}</h2>
       
       <div className="space-y-2 flex-1 overflow-y-auto">
-        {props.teamMembers.length > 0 ? (
-          props.teamMembers.map((member, index) => (
+        {teamMembers.length > 0 ? (
+          teamMembers.map((member, index) => (
             <div
               key={member.id}
               className="flex items-center gap-4 p-3 bg-white rounded-lg transition-colors border border-blue-100 shadow-sm"

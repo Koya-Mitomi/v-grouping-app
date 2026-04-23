@@ -1,11 +1,10 @@
 'use server';
 import { Player } from '@/types/player';
-import { BackButton } from './backButton';
 import { submitTeam } from '@/actions/teamActions/submitTeam';
 import { TeamNameLink } from './teamNameLink';
 
-export const TeamForm = async (props: { eventId: number; defaultValues: { teamName: string; teamMembers: Player[] } }) => {
-  const { eventId, defaultValues } = props;
+export const TeamForm = async (props: { eventId: number; defaultValues: { teamName: string; teamMembers: Player[] }; teamId: number | null }) => {
+  const { eventId, defaultValues, teamId } = props;
   const memberIds = defaultValues.teamMembers.map(member => member.id).join(',');
 
   return (
@@ -15,6 +14,9 @@ export const TeamForm = async (props: { eventId: number; defaultValues: { teamNa
           <TeamNameLink initialTeamName={defaultValues.teamName} eventId={eventId} memberIds={memberIds.split(',').map(str => parseInt(str, 10))} />
           <input type="hidden" name='eventId' value={eventId} />
           <input type="hidden" name="memberIds" value={memberIds} />
+          {teamId !== null && (
+            <input type="hidden" name="teamId" value={teamId} />
+          )}
           <div className="overflow-hidden rounded-xl border border-gray-200 shadow-sm bg-white">
             <table className="w-full text-left border-collapse">
               <thead className="bg-gray-50 border-b border-gray-200">
