@@ -19,7 +19,7 @@ export const TeamForm = async (props: { eventId: number; defaultValues: { teamNa
             <table className="w-full text-left border-collapse">
               <thead className="bg-gray-50 border-b border-gray-200">
                 <tr>
-                  <th colSpan={7} className="px-6 py-4 text-sm text-center font-semibold text-gray-600">チームメンバー一覧</th>
+                  <th colSpan={5} className="px-6 py-4 text-sm text-center font-semibold text-gray-600">チームメンバー一覧</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
@@ -29,7 +29,6 @@ export const TeamForm = async (props: { eventId: number; defaultValues: { teamNa
                   <th className="px-6 py-4 text-sm text-center font-semibold text-gray-600">レベル</th>
                   <th className="px-6 py-4 text-sm text-center font-semibold text-gray-600">学年</th>
                   <th className="px-6 py-4 text-sm text-center font-semibold text-gray-600">性別</th>
-                  <th className="px-6 py-4 text-sm text-center font-semibold text-gray-600">削除</th>
                 </tr>
                 {( defaultValues && defaultValues.teamMembers.length > 0) ? defaultValues.teamMembers.map((member) => (
                   <tr key={member.id}>
@@ -38,9 +37,6 @@ export const TeamForm = async (props: { eventId: number; defaultValues: { teamNa
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-900">{member.level}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-900">{member.year}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-900">{member.gender}</td>
-                    <td className="px-6 py-4">
-                      <button className="text-red-600 hover:text-red-900 cursor-pointer">削除</button>
-                    </td>
                   </tr>
                 )) : (
                   <tr>
@@ -56,7 +52,6 @@ export const TeamForm = async (props: { eventId: number; defaultValues: { teamNa
             保存
           </button>
         </form>
-        <BackButton path={`/events/${eventId}`} message="キャンセル" />
       </div>
     </div>
   )

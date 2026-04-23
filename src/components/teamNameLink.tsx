@@ -5,7 +5,7 @@ import { useState } from "react";
 export const TeamNameLink = (props: { initialTeamName: string; eventId: number; memberIds: number[] }) => {
   const { initialTeamName, eventId, memberIds } = props;
   const [teamName, setTeamName] = useState(initialTeamName);
-  const editUrl = `/events/${eventId}/addTeam/addMembers?teamName=${teamName}&memberIds=${memberIds.join(',')}`;
+  const editUrl = `/events/${eventId}/teamDetail/addMembers?teamName=${teamName}&memberIds=${memberIds.join(',')}`;
 
   return (
   <div className="flex flex-col items-center gap-4">

@@ -19,7 +19,7 @@ export const DisplayEvent = async ({ params }: { params: Promise<{ id: string }>
     <div className="flex items-center flex-col gap-4 p-10">
       <EventTitle eventId={event.id} initialTitle={event.title} />
       <NotificationHandler url={url} />
-      <a href={`/events/${event.id}/addTeam`} className="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+      <a href={`/events/${event.id}/teamDetail`} className="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
         チームを追加
       </a>
       <BackButton path="/events" message="戻る" />

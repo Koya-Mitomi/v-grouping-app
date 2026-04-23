@@ -1,19 +1,23 @@
-'use server';
+'use client';
 
+import { Player } from "@/types/player";
 import { BackButton } from "./backButton";
+import { PlayerSelect } from "./playerSelect";
+import { useRouter } from "next/navigation";
 
-export const AddTeamMember = async ( props: {eventId: number; teamName: string; playerIds: number[]} ) => {
-  const { eventId, teamName, playerIds } = props;
-  const cancel_url: string = `/events/${eventId}/addTeam?teamName=${teamName}&memberIds=${playerIds.join(',')}`;
+export const AddTeamMember = ( props: {eventId: number; teamName: string; playerIds: number[]; allPlayers: Player[]} ) => {
+  const { eventId, teamName, playerIds, allPlayers } = props;
+  const baseUrl: string = `/events/${eventId}/teamDetail?teamName=${teamName}`;
+  const cancelUrl: string = `${baseUrl}&memberIds=${playerIds.join(',')}`;
+  const router = useRouter();
+  const onConfirm = (selectedIds: number[]) => {
+    const redirectUrl: string = `${baseUrl}&memberIds=${selectedIds.join(',')}`;
+    router.push(redirectUrl);
+  };
   return (
     <div className="p-10 flex flex-col items-center gap-4">
-      <h2 className="text-lg font-semibold mb-4">チームメンバー編集</h2>
-      <button
-        className="h-8 px-3 text-sm font-medium text-white bg-blue-500 border border-blue-300 rounded-md shadow-sm hover:bg-blue-600 active:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-offset-1 transition-colors cursor-pointer"
-      >
-        確定
-      </button>
-      <BackButton path={cancel_url} message="キャンセル" />
+      <PlayerSelect initialSelectedIds={playerIds} players={allPlayers} onConfirm={onConfirm} />
+      <BackButton path={cancelUrl} message="キャンセル" />
     </div>
   )
 }

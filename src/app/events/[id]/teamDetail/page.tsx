@@ -1,9 +1,10 @@
 'use server';
 import { getPlayersByIds } from '@/actions/playerActions/findPlayers';
+import { BackButton } from '@/components/backButton';
 import { TeamForm } from '@/components/teamForm';
 import { Player } from '@/types/player';
 
-export const AddTeam = async ({ params, searchParams }: { params: Promise<{ id: string }>, searchParams: Promise<{ [key: string]: string | string[] | undefined }> }) => {
+export const TeamDetail = async ({ params, searchParams }: { params: Promise<{ id: string }>, searchParams: Promise<{ [key: string]: string | string[] | undefined }> }) => {
   const resolvedParams = await params;
   const resolvedSearchParams = await searchParams;
   const playerIds: number[] = (resolvedSearchParams.memberIds as string)?.split(',').map( str => parseInt(str, 10) ).filter(id => !isNaN(id)) ?? [];
@@ -27,8 +28,11 @@ export const AddTeam = async ({ params, searchParams }: { params: Promise<{ id: 
   } = await getDefaultValues();
 
   return (
-    <TeamForm eventId={eventId} defaultValues={defaultValues} />
+    <div className='p-10 flex flex-col items-center gap-4'>
+      <TeamForm eventId={eventId} defaultValues={defaultValues} />
+      <BackButton path={`/events/${eventId}`} message="キャンセル" />
+    </div>
   )
 }
 
-export default AddTeam;
+export default TeamDetail;
