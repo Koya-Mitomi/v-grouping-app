@@ -9,7 +9,7 @@ export async function addPlayer(playerData: PlayerInputs) {
 
   const user = data.user;
 
-  var gender: boolean = true;
+  let gender: boolean = true;
 
   if (playerData.gender === 'female') {
     gender = false;

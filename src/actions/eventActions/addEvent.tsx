@@ -9,7 +9,7 @@ export async function addEvent(eventData: EventInputs) {
 
   const user = data.user;
 
-  var eventId: number | null = null;
+  let eventId: number | null = null;
 
   if (user) {
     const { data, error: addEventError } = await supabase.from('events').insert({
