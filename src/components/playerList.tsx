@@ -1,0 +1,167 @@
+'use client';
+
+import { Player } from "@/types/player";
+import { DeletePlayerButton } from "./deletePlayerButton";
+import { useEffect, useState } from "react";
+import { PaginationControl } from "./paginationControl";
+
+export const PlayerList = (props: { playerList: Player[]; initialCurrentPage: number; initialPageLimit: number }) => {
+  const { playerList, initialCurrentPage, initialPageLimit } = props;
+  const [sortedPlayerList, setSortedPlayerList] = useState<Player[]>(playerList);
+  const [isNameSortButtonClicked, setIsNameSortButtonClicked] = useState(false);
+  const [isPositionSortButtonClicked, setIsPositionSortButtonClicked] = useState(false);
+  const [isLevelSortButtonClicked, setIsLevelSortButtonClicked] = useState(false);
+  const [isYearSortButtonClicked, setIsYearSortButtonClicked] = useState(false);
+  const [currentPage, setCurrentPage] = useState(initialCurrentPage);
+  const [itemsPerPage, setItemsPerPage] = useState(5);
+  const totalPages = Math.ceil(sortedPlayerList.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const displayList = sortedPlayerList.slice(startIndex, startIndex + itemsPerPage);
+
+  useEffect(() => {
+    if (currentPage > totalPages && totalPages > 0) {
+      setCurrentPage(totalPages);
+    } else if (sortedPlayerList.length === 0) {
+      setCurrentPage(1);
+    }
+  }, [sortedPlayerList.length, itemsPerPage, totalPages, currentPage]);
+
+  const onPageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+
+  const handleLimitChange = (limit: number) => {
+    setItemsPerPage(limit);
+    setCurrentPage(1);
+  };
+
+  const handleSortByName = () => {
+    const sorted = [...sortedPlayerList].sort((a, b) => a.name.localeCompare(b.name));
+    setSortedPlayerList(sorted);
+    setIsNameSortButtonClicked(true);
+    setIsPositionSortButtonClicked(false);
+    setIsLevelSortButtonClicked(false);
+    setIsYearSortButtonClicked(false);
+    setCurrentPage(1);
+  };
+
+  const handleSortByPosition = () => {
+    const sorted = [...sortedPlayerList].sort((a, b) => a.position.localeCompare(b.position));
+    setSortedPlayerList(sorted);
+    setIsNameSortButtonClicked(false);
+    setIsPositionSortButtonClicked(true);
+    setIsLevelSortButtonClicked(false);
+    setIsYearSortButtonClicked(false);
+    setCurrentPage(1);
+  };
+
+  const handleSortByLevel = () => {
+    const sorted = [...sortedPlayerList].sort((a, b) => a.level - b.level);
+    setSortedPlayerList(sorted);
+    setIsNameSortButtonClicked(false);
+    setIsPositionSortButtonClicked(false);
+    setIsLevelSortButtonClicked(true);
+    setIsYearSortButtonClicked(false);
+    setCurrentPage(1);
+  };
+
+  const handleSortByYear = () => {
+    const sorted = [...sortedPlayerList].sort((a, b) => a.year - b.year);
+    setSortedPlayerList(sorted);
+    setIsNameSortButtonClicked(false);
+    setIsPositionSortButtonClicked(false);
+    setIsLevelSortButtonClicked(false);
+    setIsYearSortButtonClicked(true);
+    setCurrentPage(1);
+  };
+
+  const handleResetSort = () => {
+    setSortedPlayerList(playerList);
+    setIsNameSortButtonClicked(false);
+    setIsPositionSortButtonClicked(false);
+    setIsLevelSortButtonClicked(false);
+    setIsYearSortButtonClicked(false);
+    setCurrentPage(1);
+  };
+
+  return (
+    <div className="p-10 flex flex-col items-center gap-4">
+      <h1 className="text-2xl font-bold mb-6 text-gray-800 pl-4">プレイヤー一覧</h1>
+      <div className="w-full max-w-4xl">
+        <div className="mb-4 flex gap-2 flex-wrap justify-between items-center">
+          <div className="flex gap-2 flex-wrap">
+            <button type="button"  onClick={isNameSortButtonClicked ? handleResetSort : handleSortByName} className="px-4 py-2 text-sm font-semibold text-gray-700 bg-gray-100 hover:bg-gray-200 rounded cursor-pointer">
+              {isNameSortButtonClicked ? "元に戻す" : "名前でソート"}
+            </button>
+            <button type="button" onClick={isPositionSortButtonClicked ? handleResetSort : handleSortByPosition} className="px-4 py-2 text-sm font-semibold text-gray-700 bg-gray-100 hover:bg-gray-200 rounded cursor-pointer">
+              {isPositionSortButtonClicked ? "元に戻す" : "ポジションでソート"}
+            </button>
+            <button type="button" onClick={isLevelSortButtonClicked ? handleResetSort : handleSortByLevel} className="px-4 py-2 text-sm font-semibold text-gray-700 bg-gray-100 hover:bg-gray-200 rounded cursor-pointer">
+              {isLevelSortButtonClicked ? "元に戻す" : "レベルでソート"}
+            </button>
+            <button type="button" onClick={isYearSortButtonClicked ? handleResetSort : handleSortByYear} className="px-4 py-2 text-sm font-semibold text-gray-700 bg-gray-100 hover:bg-gray-200 rounded cursor-pointer">
+              {isYearSortButtonClicked ? "元に戻す" : "学年でソート"}
+            </button>
+          </div>
+          <div className="flex items-center gap-2">
+            <label htmlFor="limit" className="text-xs font-medium text-gray-600">
+              表示数:
+            </label>
+            <select
+              id="limit"
+              value={itemsPerPage}
+              onChange={(e) => handleLimitChange(Number(e.target.value))}
+              className="px-1 py-1 text-xs bg-white border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
+            >
+              {[10, 20, 30, 40, 50].map((num) => (
+                <option key={num} value={num}>
+                  {num}件
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+        <div className="overflow-hidden rounded-xl border border-gray-200 shadow-sm bg-white">
+          <table className="w-full text-left border-collapse">
+            <thead className="bg-gray-50 border-b border-gray-200">
+              <tr>
+                <th className="px-6 py-4 text-sm text-center font-semibold text-gray-600">名前</th>
+                <th className="px-6 py-4 text-sm text-center font-semibold text-gray-600">ポジション</th>
+                <th className="px-6 py-4 text-sm text-center font-semibold text-gray-600">レベル</th>
+                <th className="px-6 py-4 text-sm text-center font-semibold text-gray-600">学年</th>
+                <th className="px-6 py-4 text-sm text-center font-semibold text-gray-600">性別</th>
+                <th colSpan={2} className="px-6 py-4 text-sm text-center font-semibold text-gray-600">編集 / 削除</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-100">
+              {displayList.length > 0 ? (
+                displayList.map((player) => (
+                  <tr key={player.id} className="transition-colors">
+                    <td className="px-6 py-4 text-sm text-center font-medium text-gray-900">{player.name}</td>
+                    <td className="px-6 py-4 text-sm text-center text-gray-600">{player.position}</td>
+                    <td className="px-6 py-4 text-sm text-center text-gray-600">{player.level}</td>
+                    <td className="px-6 py-4 text-sm text-center text-gray-600">{player.year}</td>
+                    <td className="px-6 py-4 text-sm text-center text-gray-600">{player.gender}</td>
+                    <td className="px-6 py-4">
+                      <a href={`/players/edit/${player.id}?page=${currentPage}&limit=${itemsPerPage}`} className="text-blue-500 cursor-pointer hover:text-blue-700">
+                        編集
+                      </a>
+                    </td>
+                    <td className="px-6 py-4">
+                      <DeletePlayerButton id={player.id} name={player.name} />
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan={6} className="px-6 py-12 text-center text-gray-500 italic">まだプレイヤーが登録されていません。「プレイヤーを追加する」からプレイヤーを追加してください。</td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <PaginationControl currentPage={currentPage} totalPages={totalPages} onPageChange={onPageChange} />
+    </div>
+  )
+}

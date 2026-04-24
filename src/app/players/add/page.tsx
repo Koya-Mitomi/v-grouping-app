@@ -5,7 +5,7 @@ import { SubmitHandler } from "react-hook-form";
 import { PlayerInputs } from "@/types/player";
 import { addPlayer } from "@/actions/playerActions/addPlayer";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { BackButton } from "@/components/backButton";
 
 const defaultValues: PlayerInputs = {
@@ -17,6 +17,8 @@ const defaultValues: PlayerInputs = {
 }
 
 export const AddPlayer = () => {
+  const page = useSearchParams().get('page');
+  const limit = useSearchParams().get('limit');
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   
@@ -25,7 +27,7 @@ export const AddPlayer = () => {
     if (await addPlayer(data)) {
       alert('プレイヤーが追加されました');
       router.refresh();
-      router.push('/players');
+      router.push(`/players?page=${page}&limit=${limit}`);
     } else {
       alert('プレイヤーの追加に失敗しました。');
     }
@@ -35,7 +37,7 @@ export const AddPlayer = () => {
   return (
     <div className="flex items-center flex-col gap-4 p-10">
       <PlayerForm formname="追加" defaults={defaultValues} isLoading={isLoading} onSubmit={onSubmit} />
-      <BackButton path="/players" message="キャンセル" />
+      <BackButton path={`/players?page=${page}&limit=${limit}`} message="キャンセル" />
     </div>
   )
 }

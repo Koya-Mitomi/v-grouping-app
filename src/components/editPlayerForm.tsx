@@ -8,8 +8,8 @@ import { useRouter } from "next/navigation";
 import { BackButton } from "@/components/backButton";
 import { editPlayer } from "@/actions/playerActions/editPlayer";
 
-export const EditPlayerForm = (props: { playerId: number; formname: string; defaults: PlayerInputs}) => {
-  const { playerId, formname, defaults } = props;
+export const EditPlayerForm = (props: { playerId: number; formname: string; defaults: PlayerInputs; page: number; limit: number }) => {
+  const { playerId, formname, defaults, page, limit } = props;
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const onSubmit: SubmitHandler<PlayerInputs> = async (data) => {
@@ -17,7 +17,7 @@ export const EditPlayerForm = (props: { playerId: number; formname: string; defa
     if (await editPlayer(data, playerId)) {
       alert('プレイヤーが編集されました');
       router.refresh();
-      router.push('/players');
+      router.push(`/players?page=${page}&limit=${limit}`);
     } else {
       alert('プレイヤーの編集に失敗しました。');
     }
@@ -27,7 +27,7 @@ export const EditPlayerForm = (props: { playerId: number; formname: string; defa
   return (
     <div className="flex items-center flex-col gap-4 p-10">
       <PlayerForm formname={formname} defaults={defaults} isLoading={isLoading} onSubmit={onSubmit} />
-      <BackButton path="/players" message="キャンセル" />
+      <BackButton path={`/players?page=${page}&limit=${limit}`} message="キャンセル" />
     </div>
   )
 }
