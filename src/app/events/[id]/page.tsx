@@ -34,7 +34,7 @@ export const DisplayEvent = async ({ params }: { params: Promise<{ id: string }>
       <NotificationHandler url={url} />
       <div className="grid grid-cols-2 gap-16 md:grid-cols-3 lg:grid-cols-4 auto-fit">
         {teamsWithMembers.map(({ team, teamMembers }) => (
-          <div>
+          <div key={team.id} className="flex flex-col items-center">
             <TeamView key={team.id} teamName={team.team_name} teamMembers={teamMembers} />
             <div className="flex gap-2 mt-2">
               <a href={`${url}/teamDetail?teamName=${encodeURIComponent(team.team_name)}&memberIds=${teamMembers.map(member => member.id).join(',')}&teamId=${team.id}`} className="mt-2 inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 cursor-pointer">
