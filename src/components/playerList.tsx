@@ -13,7 +13,7 @@ export const PlayerList = (props: { playerList: Player[]; initialCurrentPage: nu
   const [isLevelSortButtonClicked, setIsLevelSortButtonClicked] = useState(false);
   const [isYearSortButtonClicked, setIsYearSortButtonClicked] = useState(false);
   const [currentPage, setCurrentPage] = useState(initialCurrentPage);
-  const [itemsPerPage, setItemsPerPage] = useState(5);
+  const [itemsPerPage, setItemsPerPage] = useState(initialPageLimit);
   const totalPages = Math.ceil(sortedPlayerList.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const displayList = sortedPlayerList.slice(startIndex, startIndex + itemsPerPage);
@@ -162,6 +162,9 @@ export const PlayerList = (props: { playerList: Player[]; initialCurrentPage: nu
         </div>
       </div>
       <PaginationControl currentPage={currentPage} totalPages={totalPages} onPageChange={onPageChange} />
+      <a href={`/players/add?page=${currentPage}&limit=${itemsPerPage}`} className="mt-6 px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:bg-gray-400 cursor-pointer text-center">
+        プレイヤーを追加する
+      </a>
     </div>
   )
 }

@@ -5,8 +5,8 @@ import { useState } from "react";
 import { SubmitButton } from "./submitButton";
 import { PaginationControl } from "./paginationControl";
 
-export const PlayerSelect = (props: { initialSelectedIds: number[]; players: Player[]; onConfirm: (selectedIds: number[]) => void }) => {
-  const { initialSelectedIds, players, onConfirm } = props;
+export const PlayerSelect = (props: { initialSelectedIds: number[]; players: Player[]; submitButtonLabel: string; onConfirm: (selectedIds: number[]) => void }) => {
+  const { initialSelectedIds, players, submitButtonLabel, onConfirm } = props;
   const [selectedIds, setSelectedIds] = useState<number[]>(initialSelectedIds);
   const [sortedPlayers, setSortedPlayers] = useState<Player[]>(players);
   const [isNameSortButtonClicked, setIsNameSortButtonClicked] = useState(false);
@@ -38,13 +38,13 @@ export const PlayerSelect = (props: { initialSelectedIds: number[]; players: Pla
   const handleSelectAll = () => {
     setSelectedIds((prev) => {
       const set = new Set(prev);
-      displayList.forEach((p) => set.add(p.id));
+      sortedPlayers.forEach((p) => set.add(p.id));
       return Array.from(set);
     });
   };
 
   const handleDeselectAll = () => {
-  setSelectedIds((prev) => prev.filter((id) => !displayList.some((p) => p.id === id)));
+  setSelectedIds((prev) => prev.filter((id) => !sortedPlayers.some((p) => p.id === id)));
   };
 
   const handleSortByName = () => {
@@ -162,7 +162,7 @@ export const PlayerSelect = (props: { initialSelectedIds: number[]; players: Pla
                   <th className="px-6 py-4 text-sm text-center font-semibold text-gray-600">学年</th>
                   <th className="px-6 py-4 text-sm text-center font-semibold text-gray-600">性別</th>
                 </tr>
-        {displayList.map((player) => (
+                  {displayList.map((player) => (
                   <tr key={player.id}>
                     <td className="px-6 py-4 text-sm text-center font-medium text-gray-900">
                       <input type="checkbox" checked={selectedIds.includes(player.id)} value={player.id} onChange={() => handleSelectPlayer(player.id)} />
@@ -177,10 +177,9 @@ export const PlayerSelect = (props: { initialSelectedIds: number[]; players: Pla
               </tbody>
             </table>
           </div>
-
-      <PaginationControl currentPage={currentPage} totalPages={totalPages} onPageChange={onPageChange} />
         </div>
-        <SubmitButton label="確定" className="h-8 px-3 text-sm font-medium text-white bg-blue-500 border border-blue-300 rounded-md shadow-sm hover:bg-blue-600 active:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-offset-1 transition-colors cursor-pointer disabled:bg-gray-400 disabled:cursor-not-allowed" />
+        <PaginationControl currentPage={currentPage} totalPages={totalPages} onPageChange={onPageChange} />
+        <SubmitButton label={submitButtonLabel} className="h-8 px-3 text-sm font-medium text-white bg-blue-500 border border-blue-300 rounded-md shadow-sm hover:bg-blue-600 active:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-offset-1 transition-colors cursor-pointer disabled:bg-gray-400 disabled:cursor-not-allowed" />
       </div>
     </form>
   )
