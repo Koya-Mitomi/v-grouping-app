@@ -14,9 +14,6 @@ export const Players = async ({searchParams} : {searchParams: { [key: string]: s
   return (
     <div className="p-10 flex flex-col items-center gap-4">
       <PlayerList playerList={playerList} initialCurrentPage={initialCurrentPage} initialPageLimit={initialPageLimit} />
-      <a href={`/players/add?page=${initialCurrentPage}&limit=${initialPageLimit}`} className="px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:bg-gray-400 cursor-pointer text-center">
-        プレイヤーを追加する
-      </a>
       <BackButton path="/" message="戻る" />
     </div>
   )

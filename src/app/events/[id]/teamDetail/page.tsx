@@ -1,5 +1,5 @@
 'use server';
-import { getPlayersByIds } from '@/actions/playerActions/findPlayers';
+import { findPlayersByIds } from '@/actions/playerActions/findPlayers';
 import { BackButton } from '@/components/backButton';
 import { TeamForm } from '@/components/teamForm';
 import { Player } from '@/types/player';
@@ -15,7 +15,7 @@ export const TeamDetail = async ({ params, searchParams }: { params: Promise<{ i
   const getDefaultValues = async () => {
     let teamMembers: Player[] = [];
     if (playerIds.length > 0) {
-      teamMembers = await getPlayersByIds(playerIds);
+      teamMembers = await findPlayersByIds(playerIds);
     }
     return {
       teamName,

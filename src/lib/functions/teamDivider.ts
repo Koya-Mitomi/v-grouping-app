@@ -12,7 +12,7 @@ export function randomDivideTeams(
   let totalPlayers: number = players.length;
   if (totalPlayers === 0) return [];
 
-  const teamNum: number = determinedTeamNum || Math.ceil(totalPlayers / 6) || 1;
+  const teamNum: number = determinedTeamNum || Math.floor(totalPlayers / 6) || 1;
   let teams: Player[][] = Array.from({ length: teamNum }, () => []);
 
   let teamIndex: number = 0;

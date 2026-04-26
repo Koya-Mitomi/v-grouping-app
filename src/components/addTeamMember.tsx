@@ -16,7 +16,7 @@ export const AddTeamMember = ( props: {eventId: number; teamName: string; player
   };
   return (
     <div className="p-10 flex flex-col items-center gap-4">
-      <PlayerSelect initialSelectedIds={playerIds} players={allPlayers} onConfirm={onConfirm} />
+      <PlayerSelect initialSelectedIds={playerIds} players={allPlayers} submitButtonLabel="確定" onConfirm={onConfirm} />
       <BackButton path={cancelUrl} message="キャンセル" />
     </div>
   )

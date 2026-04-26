@@ -4,6 +4,7 @@ import { findEventById } from "@/actions/eventActions/findEvents";
 import { findPlayersByTeamId } from "@/actions/playerActions/findPlayers";
 import { findTeamsByEventId } from "@/actions/teamActions/findTeams";
 import { BackButton } from "@/components/backButton";
+import { CreateRandomTeamsPageButton } from "@/components/createRandomTeamsPageButton";
 import { DeleteTeamButton } from "@/components/deleteTeamButton";
 import { EventTitle } from "@/components/eventTitle";
 import { NotificationHandler } from "@/components/notificationHandler";
@@ -48,6 +49,7 @@ export const DisplayEvent = async ({ params }: { params: Promise<{ id: string }>
       <a href={`${url}/teamDetail`} className="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
         チームを追加
       </a>
+      <CreateRandomTeamsPageButton eventId={event.id} />
       <BackButton path="/events" message="戻る" />
     </div>
   )
