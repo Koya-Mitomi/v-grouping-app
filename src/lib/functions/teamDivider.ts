@@ -2,12 +2,12 @@ import { Player } from "@/types/player";
 
 // チーム自動分け関数
 export function randomDivideTeams(
-  players: Player[], 
-  determinedTeamNum?: number, 
+  players: Player[],  
   isConsiderPosition: boolean = false, 
   isConsiderLevel: boolean = false, 
   isConsiderYear: boolean = false,
-  isConsiderGender: boolean = false
+  isConsiderGender: boolean = false,
+  determinedTeamNum?: number
   ): Player[][] {
   let totalPlayers: number = players.length;
   if (totalPlayers === 0) return [];
@@ -104,6 +104,35 @@ export function randomDivideTeams(
 
   return teams;
 }
+
+// 学年ごとにプレイヤーを自動チーム分けする関数
+export function randomDivideTeamsByYear(
+  players: Player[],
+  isConsiderPosition: boolean = false,
+  isConsiderLevel: boolean = false,
+  isConsiderGender: boolean = false
+  ): Player[][] {
+  const teamsByYear: Player[][] = [];
+  const playersByYear: { [year: number]: Player[] } = {};
+
+  // 学年ごとにプレイヤーを分割
+  players.forEach(player => {
+    if (!playersByYear[player.year]) {
+      playersByYear[player.year] = [];
+    }
+    playersByYear[player.year].push(player);
+  });
+
+  // 学年ごとにチームを分割
+  Object.values(playersByYear).forEach(yearPlayers => {
+    const dividedTeams = randomDivideTeams(yearPlayers, isConsiderPosition, isConsiderLevel, false, isConsiderGender);
+    teamsByYear.push(...dividedTeams);
+  });
+  
+  return teamsByYear;
+}
+
+
 
 // Fisher-Yatesアルゴリズムを使用してプレイヤーをシャッフルする関数
 const shufflePlayers = (players: Player[]): Player[] => {
