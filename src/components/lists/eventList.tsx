@@ -15,6 +15,8 @@ export const EventList = (props: { eventList: Event[]; initialCurrentPage: numbe
   const startIndex = (currentPage - 1) * itemsPerPage;
   const displayList = sortedEventList.slice(startIndex, startIndex + itemsPerPage);
 
+  // /events/add や /events/[id] に page/limit を渡して、戻ってきた時に同じ状態で表示する
+
   const onPageChange = (page: number) => {
     setCurrentPage(page);
   };
@@ -112,9 +114,8 @@ export const EventList = (props: { eventList: Event[]; initialCurrentPage: numbe
             </tbody>
           </table>
         </div>
-
-        <PaginationControl currentPage={currentPage} totalPages={totalPages} onPageChange={onPageChange} />
       </div>
+      <PaginationControl currentPage={currentPage} totalPages={totalPages} onPageChange={onPageChange} />
     </div>
   );
 };

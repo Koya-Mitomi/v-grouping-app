@@ -8,7 +8,7 @@ export const EventForm = (props: {formname: string; defaults: EventInputs; isLoa
   const { formname, defaults, isLoading, onSubmit } = props;
   const { register, handleSubmit, formState: { errors } } = useForm<EventInputs>();
   return (
-    <div className="p-10 flex flex-col items-center gap-4">
+    <div className="p-4 md:p-10 flex flex-col items-center gap-4">
       <h1 className="text-2xl font-bold">{formname}</h1>
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col items-center gap-4">
         <div className='flex flex-col items-center w-full'>

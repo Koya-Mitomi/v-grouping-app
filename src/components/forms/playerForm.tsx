@@ -28,7 +28,7 @@ export const PlayerForm = (props: { formname: string; defaults: PlayerInputs; is
   const { formname, defaults, isLoading, onSubmit } = props;
   const { register, handleSubmit, formState: { errors } } = useForm<PlayerInputs>({ defaultValues: defaults });
   return (
-    <div className="p-10 flex flex-col items-center gap-4">
+    <div className="p-4 md:p-10 flex flex-col items-center gap-4">
       <h1 className="text-2xl font-bold">プレイヤーを{formname}</h1>
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col items-center gap-4">
           <div className='flex flex-col items-center w-full'>
@@ -40,6 +40,7 @@ export const PlayerForm = (props: { formname: string; defaults: PlayerInputs; is
                 {...defaults.name && { defaultValue: defaults.name }}
                 className="border p-2 rounded w-64" 
                 {...register("name", { required: { value: true, message: "名前は必須です" },
+                  // 記号を弾き、名前入力で想定外の文字列が入らないようにする
                   pattern: { value: /^[0-9a-zA-Zぁ-んァ-ヶ一-龠々ー]+$/, message: 'その名前は無効です' } })}
               />
               {errors.name && <p className="text-red-500 text-sm">{errors.name.message}</p>}

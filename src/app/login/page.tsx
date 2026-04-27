@@ -15,6 +15,7 @@ export const Login = () => {
     if (await login(data.email!, data.password!)) {
       alert('ログイン成功');
       router.refresh();
+  // ログイン状態で表示が変わるため、トップへ戻して再描画させる
       router.push('/');
     } else {
       alert('メールアドレスまたはパスワードが正しくありません。');
@@ -23,7 +24,7 @@ export const Login = () => {
   }
 
   return (
-    <div className="p-10 flex flex-col items-center gap-4">
+    <div className="p-4 md:p-10 flex flex-col items-center gap-4">
       <LoginForm formname='ログイン' fields={['email', 'password']} isLoading={isLoading} onSubmit={onSubmit}></LoginForm>
       <p>
         初めての方は <a href="/signup" className="text-blue-500 hover:underline">ここ</a> から新規登録してください。

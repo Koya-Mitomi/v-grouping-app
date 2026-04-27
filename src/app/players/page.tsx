@@ -12,7 +12,7 @@ export const Players = async ({searchParams} : {searchParams: { [key: string]: s
   const playerList: Player[] = await findAllPlayers();
 
   return (
-    <div className="p-10 flex flex-col items-center gap-4">
+    <div className="p-4 md:p-10 flex flex-col items-center gap-4">
       <PlayerList playerList={playerList} initialCurrentPage={initialCurrentPage} initialPageLimit={initialPageLimit} />
       <BackButton path="/" message="戻る" />
     </div>
