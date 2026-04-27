@@ -3,9 +3,11 @@ import { useEffect, useState } from "react";
 import { getLoggedInUser } from "@/actions/loginActions/getLoggedInUser";
 import { logout } from "@/actions/loginActions/logout";
 import { useRouter } from "next/navigation";
+import { findUserName } from "@/actions/userActions/findUser";
 
 export const Header = ({user_state}: { user_state: boolean }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(user_state);
+  const [userName, setUserName] = useState<string | null>(null);
   const router = useRouter();
 
   const onClickLogoutButton = async () => {
@@ -17,6 +19,20 @@ export const Header = ({user_state}: { user_state: boolean }) => {
       alert('ログアウトに失敗しました');
     }
   }
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      setUserName(null);
+      return;
+    }
+
+    const run = async () => {
+      const name = await findUserName();
+      setUserName(name);
+    };
+
+    run();
+  }, [isLoggedIn]);
 
   useEffect(() => {
     setIsLoggedIn(user_state);
@@ -39,6 +55,13 @@ export const Header = ({user_state}: { user_state: boolean }) => {
         </a>
 
         <div className="flex items-center space-x-4">
+          {userName && (
+            <div className="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-gray-50 px-3 py-1 text-xs font-medium text-gray-600 whitespace-nowrap">
+              <span className="text-gray-500">ログイン中</span>
+              <span className="text-gray-400">/</span>
+              <span className="max-w-48 truncate">{userName}</span>
+            </div>
+          )}
           <button 
             onClick={onClickLogoutButton} 
             className="px-5 py-1.5 text-sm font-medium border border-gray-200 text-gray-600 rounded-full hover:bg-gray-50 hover:text-red-500 hover:border-red-100 transition-all active:scale-95 cursor-pointer"
@@ -56,10 +79,10 @@ export const Header = ({user_state}: { user_state: boolean }) => {
         </a>
 
         <div className='flex items-center space-x-4'>
-          < a href="/login" className="px-5 py-1.5 text-sm font-medium border border-gray-200 text-gray-600 rounded-full hover:bg-gray-50 hover:text-blue-500 hover:border-blue-100 transition-all active:scale-95 cursor-pointer">
+          <a href="/login" className="px-5 py-1.5 text-sm font-medium border border-gray-200 text-gray-600 rounded-full hover:bg-gray-50 hover:text-blue-500 hover:border-blue-100 transition-all active:scale-95 cursor-pointer">
             ログイン
           </a>
-          < a href="/signup" className="px-5 py-1.5 text-sm font-medium border border-gray-200 text-gray-600 rounded-full hover:bg-gray-50 hover:text-blue-500 hover:border-blue-100 transition-all active:scale-95 cursor-pointer">
+          <a href="/signup" className="px-5 py-1.5 text-sm font-medium border border-gray-200 text-gray-600 rounded-full hover:bg-gray-50 hover:text-blue-500 hover:border-blue-100 transition-all active:scale-95 cursor-pointer">
             サインアップ
           </a>
         </div>
