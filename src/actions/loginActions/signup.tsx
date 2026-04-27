@@ -1,13 +1,27 @@
 'use server';
-import { createSupabaseServerClient } from '@/lib/supabase/server';
 
+import { createSupabaseServerClient } from '@/lib/supabase/server';
+import { getURL } from '@/lib/utils';
+
+/**
+ * サインアップを実行するServer Action
+ * プロフィール作成はDB側のトリガーで自動実行されるため、ここではAuth登録のみを行う
+ */
 export async function signUp(user_name: string, email: string, password: string) {
-  // Supabase Authにユーザー作成し、別テーブル(profiles)にアプリ用のプロフィールも保存する
   const supabase = await createSupabaseServerClient();
 
+  // Supabase Authにユーザーを作成
   const { data, error: signUpError } = await supabase.auth.signUp({
     email,
-    password
+    password,
+    options: {
+      // raw_user_meta_dataに保存され、DBトリガーから参照可能になる
+      data: {
+        user_name: user_name,
+      },
+      // メール認証後のリダイレクト先を指定
+      emailRedirectTo: `${getURL()}auth/callback?next=/`
+    }
   });
 
   if (signUpError) {
@@ -15,21 +29,8 @@ export async function signUp(user_name: string, email: string, password: string)
     return false;
   }
 
-  const user = data.user;
-
-  if (user) {
-  // Authのuser.idをPKとしてプロフィールを紐づける
-    const { error: profileError } = await supabase.from('profiles').insert({
-      id: user.id,
-      user_name: user_name,
-      email: email
-    });
-
-    if (profileError) {
-      console.error('Error creating profile:', profileError);
-      return false;
-    }
-  }
+  // プロフィール（profilesテーブル）の挿入はDBトリガーが自動で行うため
+  // ここでの insert 処理は不要になりました。
 
   return true;
 }
