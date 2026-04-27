@@ -10,14 +10,8 @@ export async function submitTeam(formData: FormData) {
   const teamId: number | null = formData.get('teamId') ? parseInt(formData.get('teamId') as string, 10) : null;
   let message: string = '';
 
-  const nameRegex = /^[^\s]+$/;
-  
   if (!teamName) {
     redirect(`/events/${eventId}?message=${encodeURIComponent('チーム名は必須です')}`);
-  }
-  
-  if (!nameRegex.test(teamName)) {
-    redirect(`/events/${eventId}?message=${encodeURIComponent('無効なチーム名です')}`);
   }
 
   if (await upsertTeam(eventId, teamName, memberIds, teamId)) {
