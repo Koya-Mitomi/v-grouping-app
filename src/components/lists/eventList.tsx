@@ -1,6 +1,6 @@
 'use client';
 import { Event } from "@/types/event";
-import { DeleteEventButton } from "./deleteEventButton";
+import { DeleteEventButton } from "../buttons/deleteEventButton";
 import { useState } from "react";
 import { PaginationControl } from "./paginationControl";
 

@@ -1,9 +1,9 @@
 'use server';
 
 import { findAllEvents } from "@/actions/eventActions/findEvents";
-import { BackButton } from "@/components/backButton";
-import { DeleteEventButton } from "@/components/deleteEventButton";
-import { EventList } from "@/components/eventList";
+import { BackButton } from "@/components/common/backButton";
+import { DeleteEventButton } from "@/components/buttons/deleteEventButton";
+import { EventList } from "@/components/lists/eventList";
 import { Event } from "@/types/event";
 
 export const Events = async () => {

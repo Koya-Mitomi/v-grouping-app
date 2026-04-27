@@ -2,7 +2,7 @@
 
 import { PlayerInputs } from "@/types/player";
 import { findPlayerById } from "@/actions/playerActions/findPlayers";
-import EditPlayerForm from "@/components/editPlayerForm";
+import EditPlayerForm from "@/components/forms/editPlayerForm";
 import { mapPlayerGenderToInputGender, mapPlayerPositionToInputPosition } from "@/lib/functions/playerMapping";
 
 export const EditPlayer = async ({ params, searchParams }: { params: Promise<{ id: string }>, searchParams: { [key: string]: string | string[] | undefined } }) => {

@@ -1,8 +1,8 @@
 'use server';
 import { Player } from '@/types/player';
 import { submitTeam } from '@/actions/teamActions/submitTeam';
-import { TeamName } from './teamName';
-import { SubmitButton } from './submitButton';
+import { TeamName } from '../teams/teamName';
+import { SubmitButton } from '../buttons/submitButton';
 
 export const TeamForm = async (props: { eventId: number; defaultValues: { teamName: string; teamMembers: Player[] }; teamId: number | null }) => {
   const { eventId, defaultValues, teamId } = props;

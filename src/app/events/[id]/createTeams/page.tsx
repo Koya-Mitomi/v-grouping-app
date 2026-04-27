@@ -1,7 +1,7 @@
 'use server';
 import { findActivePlayers, findAllPlayers } from "@/actions/playerActions/findPlayers";
 import { Player } from "@/types/player";
-import { CreateRandomTeams } from '@/components/createRandomTeams';
+import { CreateRandomTeams } from '@/components/teams/createRandomTeams';
 
 export const CreateTeams = async ({ params }: { params: Promise<{ id: string }> }) => {
   const resolvedParams = await params;

@@ -1,11 +1,11 @@
 'use client';
 
-import { PlayerForm } from "@/components/playerForm";
+import { PlayerForm } from "@/components/forms/playerForm";
 import { SubmitHandler } from "react-hook-form";
 import { PlayerInputs } from "@/types/player";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { BackButton } from "@/components/backButton";
+import { BackButton } from "@/components/common/backButton";
 import { editPlayer } from "@/actions/playerActions/editPlayer";
 
 export const EditPlayerForm = (props: { playerId: number; formname: string; defaults: PlayerInputs; page: number; limit: number }) => {

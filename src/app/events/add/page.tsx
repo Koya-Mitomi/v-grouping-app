@@ -1,8 +1,8 @@
 'use client';
 
 import { addEvent } from "@/actions/eventActions/addEvent";
-import { BackButton } from "@/components/backButton";
-import EventForm from "@/components/eventFrom";
+import { BackButton } from "@/components/common/backButton";
+import EventForm from "@/components/forms/eventFrom";
 import { EventInputs } from "@/types/event";
 import { useRouter } from "next/navigation";
 import { useState } from "react";

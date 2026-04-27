@@ -2,7 +2,7 @@
 
 import { Player } from "@/types/player";
 import { useState } from "react";
-import { SubmitButton } from "./submitButton";
+import { SubmitButton } from "../buttons/submitButton";
 import { PaginationControl } from "./paginationControl";
 
 export const PlayerSelect = (props: { initialSelectedIds: number[]; players: Player[]; submitButtonLabel: string; onConfirm: (selectedIds: number[]) => void }) => {

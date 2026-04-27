@@ -1,12 +1,12 @@
 'use client';
 
-import { PlayerForm } from "@/components/playerForm";
+import { PlayerForm } from "@/components/forms/playerForm";
 import { SubmitHandler } from "react-hook-form";
 import { PlayerInputs } from "@/types/player";
 import { addPlayer } from "@/actions/playerActions/addPlayer";
 import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { BackButton } from "@/components/backButton";
+import { BackButton } from "@/components/common/backButton";
 
 const defaultValues: PlayerInputs = {
   name: "",
