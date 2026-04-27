@@ -27,6 +27,7 @@ export const DisplayEvent = async ({ params, searchParams }: DisplayEventProps) 
   const limit = resolvedSearchParams.limit ?? '20';
 
   const listQuery = `page=${encodeURIComponent(page)}&limit=${encodeURIComponent(limit)}`;
+  const urlWithParams: string = `${url}?${listQuery}`;
 
   if (event === null) {
     return <div className="flex items-center flex-col gap-4 p-10">イベントが見つかりませんでした。</div>;
@@ -42,7 +43,7 @@ export const DisplayEvent = async ({ params, searchParams }: DisplayEventProps) 
   return (
     <div className="flex items-center flex-col gap-4 p-10">
       <EventTitle eventId={event.id} initialTitle={event.title} />
-      <NotificationHandler url={url} />
+      <NotificationHandler url={urlWithParams} />
       <div className="grid grid-cols-2 gap-16 md:grid-cols-3 lg:grid-cols-4 auto-fit">
         {teamsWithMembers.map(({ team, teamMembers }) => (
           <div key={team.id} className="flex flex-col items-center">

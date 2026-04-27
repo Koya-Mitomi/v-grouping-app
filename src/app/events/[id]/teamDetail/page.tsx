@@ -32,8 +32,8 @@ export const TeamDetail = async ({ params, searchParams }: { params: Promise<{ i
 
   return (
     <div className='p-10 flex flex-col items-center gap-4'>
-      <TeamForm eventId={eventId} defaultValues={defaultValues} teamId={teamId} />
-  <BackButton path={`/events/${eventId}?page=${encodeURIComponent(page)}&limit=${encodeURIComponent(limit)}`} {...teamId !== null ? { message: "戻る" } : { message: "キャンセル" }} />
+      <TeamForm eventId={eventId} defaultValues={defaultValues} teamId={teamId} page={page} limit={limit} />
+      <BackButton path={`/events/${eventId}?page=${encodeURIComponent(page)}&limit=${encodeURIComponent(limit)}`} {...teamId !== null ? { message: "戻る" } : { message: "キャンセル" }} />
     </div>
   )
 }
