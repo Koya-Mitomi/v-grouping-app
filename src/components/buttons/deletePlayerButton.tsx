@@ -13,7 +13,7 @@ export const DeletePlayerButton = (props: { id: number; name: string }) => {
   }
 
   return (
-    <button onClick={() => onClickDelete(id)} className="text-red-500 cursor-pointer hover:text-red-700">
+    <button onClick={() => onClickDelete(id)} className="text-red-500 cursor-pointer hover:text-red-700 whitespace-nowrap">
       削除
     </button>
   )
