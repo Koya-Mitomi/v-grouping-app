@@ -2,8 +2,8 @@
 import { mapDbGenderToPlayerGender, mapDbPositionToPlayerPosition } from '@/lib/functions/playerMapping';
 import { createSupabaseServerClient } from '@/lib/supabase/server';
 import { Player } from '@/types/player';
-import { TeamMember } from '@/types/team';
-import { findTeamMembersByTeamId } from '../teamActions/findTeams';
+import { Team, TeamMember } from '@/types/team';
+import { findTeamMembersByTeamId, findTeamsByEventId } from '../teamActions/findTeams';
 
 export async function findAllPlayers() {
   const supabase = await createSupabaseServerClient();
@@ -103,6 +103,20 @@ export async function findPlayersByTeamId(teamId: number) {
   const teamMembers: TeamMember[] = await findTeamMembersByTeamId(teamId);
   const playerIds: number[] = teamMembers.map(member => member.player_id);
   players.push(...await findPlayersByIds(playerIds));
+
+  return players;
+}
+
+export async function findPlayersByEventId(eventId: number) {
+  const players: Player[] = [];
+
+  const teams: Team[] = await findTeamsByEventId(eventId);
+  await Promise.all(
+    teams.map(async (team) => {
+      const teamPlayers = await findPlayersByTeamId(team.id);
+      players.push(...teamPlayers);
+    })
+  );
 
   return players;
 }

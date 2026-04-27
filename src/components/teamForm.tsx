@@ -1,7 +1,7 @@
 'use server';
 import { Player } from '@/types/player';
 import { submitTeam } from '@/actions/teamActions/submitTeam';
-import { TeamNameLink } from './teamNameLink';
+import { TeamName } from './teamName';
 import { SubmitButton } from './submitButton';
 
 export const TeamForm = async (props: { eventId: number; defaultValues: { teamName: string; teamMembers: Player[] }; teamId: number | null }) => {
@@ -12,7 +12,7 @@ export const TeamForm = async (props: { eventId: number; defaultValues: { teamNa
     <div>
       <div className="p-10 flex flex-col items-center gap-4">
         <form action={submitTeam} className="p-10 flex flex-col items-center gap-4">
-          <TeamNameLink initialTeamName={defaultValues.teamName} eventId={eventId} memberIds={memberIds.split(',').map(str => parseInt(str, 10))} />
+          <TeamName initialTeamName={defaultValues.teamName} eventId={eventId} memberIds={memberIds.split(',').map(str => parseInt(str, 10))} teamId={teamId} />
           <input type="hidden" name='eventId' value={eventId} />
           <input type="hidden" name="memberIds" value={memberIds} />
           {teamId !== null && (
