@@ -79,8 +79,8 @@ const onClickSaveButton = async () => {
 };
 
   return (
-    <div className="p-4 md:p-10 flex flex-col items-center gap-4">
-      <div className="w-full max-w-4xl rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
+    <div className="p-4 md:p-10 flex flex-col gap-4 w-full">
+      <div className="w-full max-w-4xl rounded-xl border border-gray-200 bg-white p-4 shadow-sm mx-auto">
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
           <label className="flex items-center gap-2 text-sm font-medium text-gray-700 cursor-pointer select-none">
             <input
@@ -163,22 +163,32 @@ const onClickSaveButton = async () => {
         </div>
       </div>
 
-      <PlayerSelect initialSelectedIds={playerIds} players={allPlayers} submitButtonLabel="ランダムにチームを生成" onConfirm={onConfirm} />
+      <div className="mx-auto w-full max-w-4xl">
+        <PlayerSelect initialSelectedIds={playerIds} players={allPlayers} submitButtonLabel="ランダムにチームを生成" onConfirm={onConfirm} />
+      </div>
+
       {generatedTeams.length > 0 && 
-        <div className="flex flex-col items-center gap-4">
-          <div className="flex flex-wrap justify-center gap-16">
+        <div className="flex flex-col gap-4 w-full mt-8">
+          <div className="flex flex-wrap justify-center gap-6 md:gap-16">
             {generatedTeams.map((members, index) => (
-              <div key={index} className="flex flex-col items-center">
-                <TeamViewWithDetail key={index} teamName={`チーム ${index + 1}`} teamMembers={members} />
+              <div key={index} className="flex flex-col items-center w-full sm:w-auto">
+                <TeamViewWithDetail teamName={`チーム ${index + 1}`} teamMembers={members} />
               </div>
             ))}
           </div>
-          <button disabled={isLoading} onClick={onClickSaveButton} className="bg-green-500 hover:bg-green-700 cursor-pointer disabled:bg-gray-400 disabled:cursor-not-allowed text-white font-bold py-2 px-4 rounded">
-            {isLoading ? "処理中..." : "チームを確定"}
+          <button 
+            disabled={isLoading} 
+            onClick={onClickSaveButton} 
+            className="bg-green-500 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg shadow-md mx-auto transition-colors disabled:bg-gray-400 cursor-pointer"
+          >
+            {isLoading ? "処理中..." : "このチーム分けを確定して保存"}
           </button>
         </div>
       }
-      <BackButton path={cancelUrl} message="キャンセル" />
+
+      <div className="mx-auto">
+        <BackButton path={cancelUrl} message="キャンセル" />
+      </div>
     </div>
   )
 }

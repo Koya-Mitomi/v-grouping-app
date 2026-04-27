@@ -18,9 +18,13 @@ export const AddTeamMember = ( props: {eventId: number; teamName: string; player
     router.push(redirectUrl);
   };
   return (
-    <div className="p-4 md:p-10 flex flex-col items-center gap-4">
-      <PlayerSelect initialSelectedIds={playerIds} players={allPlayers} submitButtonLabel="確定" onConfirm={onConfirm} />
-      <BackButton path={cancelUrl} message="キャンセル" />
+    <div className="p-4 md:p-10 flex flex-col gap-4 w-full">
+      <div className="w-full max-w-4xl mx-auto text-center">
+        <PlayerSelect initialSelectedIds={playerIds} players={allPlayers} submitButtonLabel="確定" onConfirm={onConfirm} />
+      </div>
+      <div className="mx-auto">
+        <BackButton path={cancelUrl} message="キャンセル" />
+      </div>
     </div>
   )
 }

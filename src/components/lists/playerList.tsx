@@ -85,21 +85,22 @@ export const PlayerList = (props: { playerList: Player[]; initialCurrentPage: nu
   };
 
   return (
-    <div className="p-4 md:p-10 flex flex-col items-center gap-4">
-      <h1 className="text-xl md:text-2xl font-bold mb-6 text-gray-800 pl-4">プレイヤー一覧</h1>
-      <div className="w-full max-w-4xl">
+    <div className="p-4 md:p-10 flex flex-col gap-4 w-full">
+      <h1 className="text-xl md:text-2xl font-bold mb-6 text-gray-800 text-center">プレイヤー一覧</h1>
+      
+      <div className="w-full max-w-4xl mx-auto">
         <div className="mb-4 flex gap-4 flex-wrap justify-between items-center">
           <div className="flex gap-2 flex-wrap">
-            <button type="button"  onClick={isNameSortButtonClicked ? handleResetSort : handleSortByName} className="px-4 py-2 text-sm font-semibold text-gray-700 bg-gray-100 hover:bg-gray-200 rounded cursor-pointer">
+            <button type="button" onClick={isNameSortButtonClicked ? handleResetSort : handleSortByName} className="px-4 py-2 text-sm font-semibold text-gray-700 bg-gray-100 hover:bg-gray-200 rounded cursor-pointer transition-colors">
               {isNameSortButtonClicked ? "元に戻す" : "名前でソート"}
             </button>
-            <button type="button" onClick={isPositionSortButtonClicked ? handleResetSort : handleSortByPosition} className="px-4 py-2 text-sm font-semibold text-gray-700 bg-gray-100 hover:bg-gray-200 rounded cursor-pointer">
+            <button type="button" onClick={isPositionSortButtonClicked ? handleResetSort : handleSortByPosition} className="px-4 py-2 text-sm font-semibold text-gray-700 bg-gray-100 hover:bg-gray-200 rounded cursor-pointer transition-colors">
               {isPositionSortButtonClicked ? "元に戻す" : "ポジションでソート"}
             </button>
-            <button type="button" onClick={isLevelSortButtonClicked ? handleResetSort : handleSortByLevel} className="px-4 py-2 text-sm font-semibold text-gray-700 bg-gray-100 hover:bg-gray-200 rounded cursor-pointer">
+            <button type="button" onClick={isLevelSortButtonClicked ? handleResetSort : handleSortByLevel} className="px-4 py-2 text-sm font-semibold text-gray-700 bg-gray-100 hover:bg-gray-200 rounded cursor-pointer transition-colors">
               {isLevelSortButtonClicked ? "元に戻す" : "レベルでソート"}
             </button>
-            <button type="button" onClick={isYearSortButtonClicked ? handleResetSort : handleSortByYear} className="px-4 py-2 text-sm font-semibold text-gray-700 bg-gray-100 hover:bg-gray-200 rounded cursor-pointer">
+            <button type="button" onClick={isYearSortButtonClicked ? handleResetSort : handleSortByYear} className="px-4 py-2 text-sm font-semibold text-gray-700 bg-gray-100 hover:bg-gray-200 rounded cursor-pointer transition-colors">
               {isYearSortButtonClicked ? "元に戻す" : "学年でソート"}
             </button>
           </div>
@@ -142,12 +143,12 @@ export const PlayerList = (props: { playerList: Player[]; initialCurrentPage: nu
                     <td className="px-4 md:px-6 py-4 text-sm text-center text-gray-600 whitespace-nowrap">{player.level}</td>
                     <td className="px-4 md:px-6 py-4 text-sm text-center text-gray-600 whitespace-nowrap">{player.year}</td>
                     <td className="px-4 md:px-6 py-4 text-sm text-center text-gray-600 whitespace-nowrap">{player.gender}</td>
-                    <td className="px-4 md:px-6 py-4">
+                    <td className="px-4 md:px-6 py-4 text-center">
                       <a href={`/players/edit/${player.id}?page=${currentPage}&limit=${itemsPerPage}`} className="text-blue-500 cursor-pointer hover:text-blue-700 whitespace-nowrap">
                         編集
                       </a>
                     </td>
-                    <td className="px-4 md:px-6 py-4">
+                    <td className="px-4 md:px-6 py-4 text-center">
                       <DeletePlayerButton id={player.id} name={player.name} />
                     </td>
                   </tr>
@@ -161,10 +162,13 @@ export const PlayerList = (props: { playerList: Player[]; initialCurrentPage: nu
           </table>
         </div>
       </div>
-      <PaginationControl currentPage={currentPage} totalPages={totalPages} onPageChange={onPageChange} />
-      <a href={`/players/add?page=${currentPage}&limit=${itemsPerPage}`} className="mt-6 px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:bg-gray-400 cursor-pointer text-center">
-        プレイヤーを追加する
-      </a>
+      
+      <div className="flex flex-col items-center gap-4 w-full mt-2">
+        <PaginationControl currentPage={currentPage} totalPages={totalPages} onPageChange={onPageChange} />
+        <a href={`/players/add?page=${currentPage}&limit=${itemsPerPage}`} className="px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors cursor-pointer text-center font-semibold shadow-md">
+          プレイヤーを追加する
+        </a>
+      </div>
     </div>
   )
 }

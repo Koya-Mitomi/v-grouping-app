@@ -12,9 +12,13 @@ export const Players = async ({searchParams} : {searchParams: { [key: string]: s
   const playerList: Player[] = await findAllPlayers();
 
   return (
-    <div className="p-4 md:p-10 flex flex-col items-center gap-4">
-      <PlayerList playerList={playerList} initialCurrentPage={initialCurrentPage} initialPageLimit={initialPageLimit} />
-      <BackButton path="/" message="戻る" />
+    <div className="p-4 md:p-10 flex flex-col gap-4 w-full">
+      <div className="w-full max-w-4xl mx-auto">
+        <PlayerList playerList={playerList} initialCurrentPage={initialCurrentPage} initialPageLimit={initialPageLimit} />
+      </div>
+      <div className="mx-auto">
+        <BackButton path="/" message="戻る" />
+      </div>
     </div>
   )
 }

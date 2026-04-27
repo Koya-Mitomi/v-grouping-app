@@ -40,17 +40,17 @@ export const EventList = (props: { eventList: Event[]; initialCurrentPage: numbe
   };
 
   return (
-    <div className="p-4 md:p-10 flex flex-col items-center gap-4">
-      <h1 className="text-xl md:text-2xl font-bold mb-6 text-gray-800 pl-4">イベント一覧</h1>
+    <div className="p-4 md:p-10 flex flex-col gap-4 w-full">
+      <h1 className="text-xl md:text-2xl font-bold mb-6 text-gray-800 text-center">イベント一覧</h1>
 
       <a
         href={`/events/add?page=${currentPage}&limit=${itemsPerPage}`}
-        className="px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:bg-gray-400 cursor-pointer text-center w-full max-w-xs"
+        className="px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:bg-gray-400 cursor-pointer text-center w-full max-w-xs mx-auto"
       >
         イベントを作成
       </a>
 
-      <div className="w-full max-w-4xl">
+      <div className="w-full max-w-4xl mx-auto">
         <div className="mb-4 flex gap-2 flex-wrap items-center">
           <button
             type="button"
@@ -115,7 +115,10 @@ export const EventList = (props: { eventList: Event[]; initialCurrentPage: numbe
           </table>
         </div>
       </div>
-      <PaginationControl currentPage={currentPage} totalPages={totalPages} onPageChange={onPageChange} />
+
+      <div className="mx-auto mt-2">
+        <PaginationControl currentPage={currentPage} totalPages={totalPages} onPageChange={onPageChange} />
+      </div>
     </div>
   );
 };
