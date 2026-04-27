@@ -4,15 +4,16 @@ import { submitTeam } from '@/actions/teamActions/submitTeam';
 import { TeamName } from '../teams/teamName';
 import { SubmitButton } from '../buttons/submitButton';
 
-export const TeamForm = async (props: { eventId: number; defaultValues: { teamName: string; teamMembers: Player[] }; teamId: number | null }) => {
-  const { eventId, defaultValues, teamId } = props;
+export const TeamForm = async (props: { eventId: number; defaultValues: { teamName: string; teamMembers: Player[] }; teamId: number | null; page: string; limit: string }) => {
+  const { eventId, defaultValues, teamId, page, limit } = props;
   const memberIds = defaultValues.teamMembers.map(member => member.id).join(',');
+  const submitTeamWithParams = submitTeam.bind(null, page, limit);
 
   return (
     <div>
       <div className="p-10 flex flex-col items-center gap-4">
-        <form action={submitTeam} className="p-10 flex flex-col items-center gap-4">
-          <TeamName initialTeamName={defaultValues.teamName} eventId={eventId} memberIds={memberIds.split(',').map(str => parseInt(str, 10))} teamId={teamId} />
+        <form action={submitTeamWithParams} className="p-10 flex flex-col items-center gap-4">
+          <TeamName initialTeamName={defaultValues.teamName} eventId={eventId} memberIds={memberIds.split(',').map(str => parseInt(str, 10))} teamId={teamId} page={page} limit={limit} />
           <input type="hidden" name='eventId' value={eventId} />
           <input type="hidden" name="memberIds" value={memberIds} />
           {teamId !== null && (

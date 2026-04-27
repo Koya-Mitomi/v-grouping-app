@@ -2,10 +2,10 @@
 
 import { useState } from "react";
 
-export const TeamName = (props: { initialTeamName: string; eventId: number; memberIds: number[]; teamId: number | null }) => {
-  const { initialTeamName, eventId, memberIds, teamId } = props;
+export const TeamName = (props: { initialTeamName: string; eventId: number; memberIds: number[]; teamId: number | null; page: string; limit: string; }) => {
+  const { initialTeamName, eventId, memberIds, teamId, page, limit } = props;
   const [teamName, setTeamName] = useState(initialTeamName);
-  let editUrl: string = `/events/${eventId}/teamDetail/addMembers?teamName=${teamName}&memberIds=${memberIds.join(',')}`;
+  let editUrl: string = `/events/${eventId}/teamDetail/addMembers?teamName=${teamName}&memberIds=${memberIds.join(',')}&page=${page}&limit=${limit}`;
   if (teamId !== null) {
     editUrl += `&teamId=${teamId}`;
   }
