@@ -17,6 +17,7 @@ const defaultValues: PlayerInputs = {
 }
 
 export const AddPlayer = () => {
+  // 一覧(/players)のpage/limitを引き回して、追加後に元のページへ戻せるようにする
   const page = useSearchParams().get('page');
   const limit = useSearchParams().get('limit');
   const [isLoading, setIsLoading] = useState(false);
@@ -35,7 +36,7 @@ export const AddPlayer = () => {
   }
 
   return (
-    <div className="flex items-center flex-col gap-4 p-10">
+    <div className="flex items-center flex-col gap-4 p-4 md:p-10">
       <PlayerForm formname="追加" defaults={defaultValues} isLoading={isLoading} onSubmit={onSubmit} />
       <BackButton path={`/players?page=${page}&limit=${limit}`} message="キャンセル" />
     </div>

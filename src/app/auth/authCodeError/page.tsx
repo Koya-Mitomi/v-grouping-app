@@ -3,7 +3,7 @@ import Link from 'next/link';
 export default function AuthCodeError() {
   return (
     <div className="flex flex-col items-center justify-center min-h-[80vh] p-4 text-center">
-      <div className="bg-white border border-red-50 rounded-3xl shadow-xl shadow-red-500/5 p-10 max-w-md w-full animate-in fade-in zoom-in duration-500">
+      <div className="bg-white border border-red-50 rounded-3xl shadow-xl shadow-red-500/5 p-4 md:p-10 max-w-md w-full animate-in fade-in zoom-in duration-500">
         
         {/* エラーアイコン */}
         <div className="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-red-50 mb-6">

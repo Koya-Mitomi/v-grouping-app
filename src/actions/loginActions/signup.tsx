@@ -2,6 +2,7 @@
 import { createSupabaseServerClient } from '@/lib/supabase/server';
 
 export async function signUp(user_name: string, email: string, password: string) {
+  // Supabase Authにユーザー作成し、別テーブル(profiles)にアプリ用のプロフィールも保存する
   const supabase = await createSupabaseServerClient();
 
   const { data, error: signUpError } = await supabase.auth.signUp({
@@ -17,6 +18,7 @@ export async function signUp(user_name: string, email: string, password: string)
   const user = data.user;
 
   if (user) {
+  // Authのuser.idをPKとしてプロフィールを紐づける
     const { error: profileError } = await supabase.from('profiles').insert({
       id: user.id,
       user_name: user_name,

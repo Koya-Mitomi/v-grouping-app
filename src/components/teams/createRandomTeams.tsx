@@ -16,6 +16,7 @@ import { editPlayerActivations } from "@/actions/playerActions/editPlayer";
 export const CreateRandomTeams = ( props: {eventId: number; playerIds: number[]; allPlayers: Player[]; page?: string; limit?: string} ) => {
   const { eventId, playerIds, allPlayers, page = '1', limit = '20' } = props;
   const baseUrl: string = `/events/${eventId}`;
+  // 一覧で選んでいたpage/limitを維持してイベント詳細に戻せるよう、detail側URLにクエリを付けておく
   const cancelUrl: string = `${baseUrl}?page=${encodeURIComponent(page)}&limit=${encodeURIComponent(limit)}`;
   const router = useRouter();
 
@@ -52,6 +53,8 @@ export const CreateRandomTeams = ( props: {eventId: number; playerIds: number[];
 
 const onClickSaveButton = async () => {
   setIsLoading(true);
+
+  // 既存チームを全削除→生成結果で作り直す（上書き保存）
   const oldTeams = await findTeamsByEventId(eventId);
   const selectedPlayers = generatedTeams.flat();
   const selectedPlayerIds = selectedPlayers.map(player => player.id);
@@ -68,6 +71,7 @@ const onClickSaveButton = async () => {
     await upsertTeam(eventId, teamName, memberIds);
   }
 
+  // 今回選ばれていないプレイヤーは非アクティブ、選ばれたプレイヤーはアクティブにする
   await editPlayerActivations(restPlayerIds, false);
   await editPlayerActivations(selectedPlayerIds, true);
 
@@ -75,7 +79,7 @@ const onClickSaveButton = async () => {
 };
 
   return (
-    <div className="p-10 flex flex-col items-center gap-4">
+    <div className="p-4 md:p-10 flex flex-col items-center gap-4">
       <div className="w-full max-w-4xl rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
           <label className="flex items-center gap-2 text-sm font-medium text-gray-700 cursor-pointer select-none">

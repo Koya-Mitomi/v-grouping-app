@@ -7,9 +7,10 @@ export const LoginForm = (props: { formname: string; fields: (keyof LoginInputs)
   const { formname, fields, isLoading, onSubmit } = props;
   const { register, handleSubmit, formState: { errors } } = useForm<LoginInputs>();
   return (
-    <div className="p-10 flex flex-col items-center gap-4">
+    <div className="p-4 md:p-10 flex flex-col items-center gap-4">
       <h1 className="text-2xl font-bold">{formname}</h1>
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col items-center gap-4">
+          {/* ログイン/サインアップ等で入力項目が変わるため、fieldsから動的にフォームを構成する */}
           {fields.map((field) => (
             <div key={field} className='flex flex-col items-center w-full'>
               <input 

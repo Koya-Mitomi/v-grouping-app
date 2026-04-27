@@ -14,6 +14,8 @@ export const ForgotPassword = () => {
     setIsLoading(true);
     if (await sendResetEmail(data.email!)) {
       alert('確認メールを送信しました。メールを確認してください。');
+
+  // verify画面を直アクセスされた場合のガード用（送信フロー経由かどうか）
       sessionStorage.setItem('is_send_email', 'true');
       router.push('/forgotPassword/verify');
     } else {
@@ -23,7 +25,7 @@ export const ForgotPassword = () => {
   }
 
   return (
-    <div className="p-10 flex flex-col items-center gap-4">
+    <div className="p-4 md:p-10 flex flex-col items-center gap-4">
       <LoginForm formname='確認メール送信' fields={['email']} isLoading={isLoading} onSubmit={onSubmit}></LoginForm>
       <p> パスワード再設定用の確認メールを送信します。 </p>
       <p> 登録済みのメールアドレスを入力し、「確認メールを送信」ボタンをクリックしてください。 </p>

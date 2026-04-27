@@ -24,7 +24,9 @@ export const AddMembers = async ({ params, searchParams }: { params: Promise<{ i
   const availablePlayers = allPlayers.filter(player => {
     const isInEvent = playersInThisEvent.some(eventPlayer => eventPlayer.id === player.id);
     const isInTeam = playersInThisTeam.some(teamPlayer => teamPlayer.id === player.id);
-    return !isInEvent || isInTeam; // イベント内の他のチームにいないプレイヤーは表示する
+  // イベント内の別チームに所属しているプレイヤーは二重所属になるため除外。
+  // ただし、今編集中のチームに所属しているプレイヤーは選び直せるように残す。
+  return !isInEvent || isInTeam;
   });
 
   return (

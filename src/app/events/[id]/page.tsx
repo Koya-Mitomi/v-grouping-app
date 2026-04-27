@@ -9,6 +9,7 @@ import { EventTitle } from "@/components/events/eventTitle";
 import { NotificationHandler } from "@/components/common/notificationHandler";
 import { TeamView } from "@/components/teams/teamView";
 import { Team } from "@/types/team";
+import { CreateRandomTeamsPageButton } from "@/components/buttons/createRandomTeamsPageButton";
 
 type DisplayEventProps = {
   params: Promise<{ id: string }>;
@@ -22,15 +23,17 @@ export const DisplayEvent = async ({ params, searchParams }: DisplayEventProps) 
   const teams: Team[] = await findTeamsByEventId(eventId);
   const url: string = `/events/${eventId}`;
 
+  // 一覧(/events)のpage/limitを引き回し、詳細→戻る・詳細→他画面→戻るでも一覧の状態を維持する
   const resolvedSearchParams = (await searchParams) ?? {};
   const page = resolvedSearchParams.page ?? '1';
   const limit = resolvedSearchParams.limit ?? '20';
 
   const listQuery = `page=${encodeURIComponent(page)}&limit=${encodeURIComponent(limit)}`;
+  // 通知表示や戻る導線で使うため、詳細ページのURLにもpage/limitを含めたものを作っておく
   const urlWithParams: string = `${url}?${listQuery}`;
 
   if (event === null) {
-    return <div className="flex items-center flex-col gap-4 p-10">イベントが見つかりませんでした。</div>;
+    return <div className="flex items-center flex-col gap-4 p-4 md:p-10">イベントが見つかりませんでした。</div>;
   }
 
   const teamsWithMembers = await Promise.all(
@@ -61,12 +64,7 @@ export const DisplayEvent = async ({ params, searchParams }: DisplayEventProps) 
         <a href={`${url}/teamDetail?${listQuery}`} className="text-center bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
           チームを追加
         </a>
-        <a
-          href={`${url}/createTeams?${listQuery}`}
-          className="text-center bg-gradient-to-b from-orange-400 to-orange-600 text-white font-bold px-6 py-3 rounded-lg shadow-lg hover:shadow-xl hover:scale-105 transition-transform duration-150 cursor-pointer border-2 border-orange-700"
-        >
-          チームを自動生成
-        </a>
+        <CreateRandomTeamsPageButton eventId={event.id} />
       </div>
       <BackButton path={`/events?page=${encodeURIComponent(page)}&limit=${encodeURIComponent(limit)}`} message="戻る" />
     </div>

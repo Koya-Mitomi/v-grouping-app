@@ -22,7 +22,7 @@ export const AddEvent = () => {
     if (eventId !== null) {
       alert('イベントが追加されました');
       router.refresh();
-      router.push(`/events/${eventId}`);
+      router.push(`/events/${eventId}?page=${encodeURIComponent(page)}&limit=${encodeURIComponent(limit)}`);
     } else {
       alert('イベントの追加に失敗しました。');
     }
@@ -30,7 +30,7 @@ export const AddEvent = () => {
   }
 
   return (
-    <div className="p-10 flex flex-col items-center gap-4">
+    <div className="p-4 md:p-10 flex flex-col items-center gap-4">
       <EventForm formname="イベントを作成" defaults={{ title: "" }} isLoading={isLoading} onSubmit={onSubmit} />
       <BackButton path={`/events?page=${encodeURIComponent(page)}&limit=${encodeURIComponent(limit)}`} message="キャンセル" />
     </div>

@@ -7,10 +7,14 @@ import { Player } from '@/types/player';
 export const TeamDetail = async ({ params, searchParams }: { params: Promise<{ id: string }>, searchParams: Promise<{ [key: string]: string | string[] | undefined }> }) => {
   const resolvedParams = await params;
   const resolvedSearchParams = await searchParams;
+
+  // teamDetailは「新規作成」と「既存チーム編集」を同じ画面で扱うため、URLクエリから状態を復元する
   const playerIds: number[] = (resolvedSearchParams.memberIds as string)?.split(',').map( str => parseInt(str, 10) ).filter(id => !isNaN(id)) ?? [];
   const teamName: string = (resolvedSearchParams.teamName as string) || '';
   const eventId = parseInt(resolvedParams.id);
   const teamId: number | null = resolvedSearchParams.teamId ? parseInt(resolvedSearchParams.teamId as string, 10) : null; 
+
+  // 一覧(/events)のpage/limitを引き回して、どの画面から戻っても一覧の状態が崩れないようにする
   const page = (resolvedSearchParams.page as string) || '1';
   const limit = (resolvedSearchParams.limit as string) || '20';
 

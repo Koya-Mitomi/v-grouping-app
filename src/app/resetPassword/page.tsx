@@ -12,6 +12,7 @@ export const ResetPassword = () => {
 
   const onSubmit: SubmitHandler<LoginInputs> = async (data) => {
     setIsLoading(true);
+  // リセットメール経由で作られたセッションを使って、Supabase側でパスワードを更新する
     if (await resetPassword(data.password!)) {
       alert('パスワードのリセットに成功しました');
       router.push('/');
@@ -22,7 +23,7 @@ export const ResetPassword = () => {
   }
 
   return (
-    <div className="p-10 flex flex-col items-center gap-4">
+    <div className="p-4 md:p-10 flex flex-col items-center gap-4">
       <LoginForm formname='新しいパスワードを入力' fields={['password']} isLoading={isLoading} onSubmit={onSubmit}></LoginForm>
     </div>
   )
