@@ -101,7 +101,7 @@ export const PlayerSelect = (props: { initialSelectedIds: number[]; players: Pla
       e.preventDefault();
       onConfirm(selectedIds);
     }}>
-      <div className="p-10 flex flex-col items-center gap-4">
+      <div className="p-4 md:p-10 flex flex-col items-center gap-4">
         <div className="w-full max-w-4xl">
           <div className="mb-4 flex gap-2 flex-wrap justify-between items-center">
             <div className="flex gap-2 flex-wrap">
@@ -136,7 +136,7 @@ export const PlayerSelect = (props: { initialSelectedIds: number[]; players: Pla
               </select>
             </div>
           </div>
-          <div className="overflow-hidden rounded-xl border border-gray-200 shadow-sm bg-white">
+          <div className="overflow-x-auto rounded-xl border border-gray-200 shadow-sm bg-white">
             <table className="w-full text-left border-collapse">
               <thead className="bg-gray-50 border-b border-gray-200">
               <tr>
@@ -155,23 +155,23 @@ export const PlayerSelect = (props: { initialSelectedIds: number[]; players: Pla
             </thead>
               <tbody className="divide-y divide-gray-100">
                 <tr>
-                  <th className="px-6 py-4 text-sm text-center font-semibold text-gray-600">選択</th>
-                  <th className="px-6 py-4 text-sm text-center font-semibold text-gray-600">名前</th>
-                  <th className="px-6 py-4 text-sm text-center font-semibold text-gray-600">ポジション</th>
-                  <th className="px-6 py-4 text-sm text-center font-semibold text-gray-600">レベル</th>
-                  <th className="px-6 py-4 text-sm text-center font-semibold text-gray-600">学年</th>
-                  <th className="px-6 py-4 text-sm text-center font-semibold text-gray-600">性別</th>
+                  <th className="px-6 py-4 text-sm text-center font-semibold text-gray-600 whitespace-nowrap">選択</th>
+                  <th className="px-6 py-4 text-sm text-center font-semibold text-gray-600 whitespace-nowrap">名前</th>
+                  <th className="px-6 py-4 text-sm text-center font-semibold text-gray-600 whitespace-nowrap">ポジション</th>
+                  <th className="px-6 py-4 text-sm text-center font-semibold text-gray-600 whitespace-nowrap">レベル</th>
+                  <th className="px-6 py-4 text-sm text-center font-semibold text-gray-600 whitespace-nowrap">学年</th>
+                  <th className="px-6 py-4 text-sm text-center font-semibold text-gray-600 whitespace-nowrap">性別</th>
                 </tr>
                   {displayList.map((player) => (
                   <tr key={player.id}>
                     <td className="px-6 py-4 text-sm text-center font-medium text-gray-900">
                       <input type="checkbox" checked={selectedIds.includes(player.id)} value={player.id} onChange={() => handleSelectPlayer(player.id)} />
                     </td>
-                    <td className="px-6 py-4 text-sm text-center text-gray-600">{player.name}</td>
-                    <td className="px-6 py-4 text-sm text-center text-gray-600">{player.position}</td>
-                    <td className="px-6 py-4 text-sm text-center text-gray-600">{player.level}</td>
-                    <td className="px-6 py-4 text-sm text-center text-gray-600">{player.year}</td>
-                    <td className="px-6 py-4 text-sm text-center text-gray-600">{player.gender}</td>
+                    <td className="px-6 py-4 text-sm text-center text-gray-600 whitespace-nowrap">{player.name}</td>
+                    <td className="px-6 py-4 text-sm text-center text-gray-600 whitespace-nowrap">{player.position}</td>
+                    <td className="px-6 py-4 text-sm text-center text-gray-600 whitespace-nowrap">{player.level}</td>
+                    <td className="px-6 py-4 text-sm text-center text-gray-600 whitespace-nowrap">{player.year}</td>
+                    <td className="px-6 py-4 text-sm text-center text-gray-600 whitespace-nowrap">{player.gender}</td>
                   </tr>
                 ))}
               </tbody>

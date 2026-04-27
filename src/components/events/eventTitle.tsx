@@ -28,11 +28,11 @@ export const EventTitle = (props: { eventId: number; initialTitle: string }) => 
     )
   }
 
-  return (
-    <div className="flex w-full items-center justify-center gap-7">
-      <h1 className="text-center text-3xl font-bold">{title}</h1>
-      <button onClick={() => setIsEditing(true)} className="shrink-0 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 cursor-pointer">
-        イベント名を編集
+return (
+    <div className="flex flex-wrap w-full items-center justify-center gap-4 md:gap-7 mb-4">
+      <h1 className="text-center text-xl md:text-3xl font-bold break-all">{title}</h1>
+      <button onClick={() => setIsEditing(true)} className="shrink-0 px-3 py-1.5 md:px-4 md:py-2 text-sm md:text-base bg-blue-500 text-white rounded hover:bg-blue-600 cursor-pointer">
+        編集
       </button>
     </div>
   )

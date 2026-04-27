@@ -38,7 +38,7 @@ export const EventList = (props: { eventList: Event[]; initialCurrentPage: numbe
   };
 
   return (
-    <div className="p-10 flex flex-col items-center gap-4">
+    <div className="p-4 md:p-10 flex flex-col items-center gap-4">
       <h1 className="text-2xl font-bold mb-6 text-gray-800 pl-4">イベント一覧</h1>
 
       <a
@@ -77,27 +77,27 @@ export const EventList = (props: { eventList: Event[]; initialCurrentPage: numbe
           </div>
         </div>
 
-        <div className="overflow-hidden rounded-xl border border-gray-200 shadow-sm bg-white">
+        <div className="overflow-x-auto rounded-xl border border-gray-200 shadow-sm bg-white">
           <table className="w-full text-left border-collapse">
             <thead className="bg-gray-50 border-b border-gray-200">
               <tr>
-                <th className="w-[36rem] px-6 py-4 text-sm text-center font-semibold text-gray-600">イベント名</th>
-                <th className="w-24 px-6 py-4 text-sm text-center font-semibold text-gray-600">削除</th>
+                <th className="md:w-[36rem] px-6 py-4 text-sm text-center font-semibold text-gray-600 whitespace-nowrap">イベント名</th>
+                <th className="w-24 px-6 py-4 text-sm text-center font-semibold text-gray-600 whitespace-nowrap">削除</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100">
               {displayList.length > 0 ? (
                 displayList.map((event) => (
                   <tr key={event.id}>
-                    <td className="px-6 py-4 text-sm text-center text-gray-700">
+                    <td className="px-6 py-4 text-sm text-center text-gray-700 whitespace-nowrap">
                       <a
                         href={`/events/${event.id}?page=${currentPage}&limit=${itemsPerPage}`}
-                        className="text-blue-700 text-lg cursor-pointer hover:text-blue-900"
+                        className="text-blue-700 text-lg cursor-pointer hover:text-blue-900 whitespace-nowrap"
                       >
                         {event.title}
                       </a>
                     </td>
-                    <td className="px-6 py-4 text-sm text-center">
+                    <td className="px-6 py-4 text-sm text-center whitespace-nowrap">
                       <DeleteEventButton id={event.id} title={event.title} />
                     </td>
                   </tr>
@@ -112,9 +112,8 @@ export const EventList = (props: { eventList: Event[]; initialCurrentPage: numbe
             </tbody>
           </table>
         </div>
-
-        <PaginationControl currentPage={currentPage} totalPages={totalPages} onPageChange={onPageChange} />
       </div>
+      <PaginationControl currentPage={currentPage} totalPages={totalPages} onPageChange={onPageChange} />
     </div>
   );
 };
