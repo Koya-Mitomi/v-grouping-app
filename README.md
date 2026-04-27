@@ -62,11 +62,8 @@ Supabaseを利用している場合、`.env.local` を作成し、必要な値�
 
 ```bash
 NEXT_PUBLIC_SUPABASE_URL=xxxx
-NEXT_PUBLIC_SUPABASE_ANON_KEY=xxxx
-SUPABASE_SERVICE_ROLE_KEY=xxxx
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=xxxx
 ```
-
-※実際に必要なキーはコード側の参照に合わせて調整してください。
 
 ### 3) 開発サーバー起動
 
