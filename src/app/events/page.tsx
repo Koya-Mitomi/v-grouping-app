@@ -18,9 +18,13 @@ export const Events = async ({ searchParams }: EventsPageProps) => {
   const initialPageLimit = Math.max(1, Number(resolvedSearchParams.limit ?? 20));
 
   return (
-    <div className="p-4 md:p-10 flex flex-col items-center gap-4">
-      <EventList eventList={eventList} initialCurrentPage={initialCurrentPage} initialPageLimit={initialPageLimit} />
-      <BackButton path="/" message="戻る" />
+    <div className="p-4 md:p-10 flex flex-col gap-4 w-full">
+      <div className="w-full max-w-4xl mx-auto">
+        <EventList eventList={eventList} initialCurrentPage={initialCurrentPage} initialPageLimit={initialPageLimit} />
+      </div>
+      <div className="mx-auto">
+        <BackButton path="/" message="戻る" />
+      </div>
     </div>
   )
 }

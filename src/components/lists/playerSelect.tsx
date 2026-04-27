@@ -101,8 +101,9 @@ export const PlayerSelect = (props: { initialSelectedIds: number[]; players: Pla
       e.preventDefault();
       onConfirm(selectedIds);
     }}>
-      <div className="px-4 py-8 md:p-10 flex flex-col items-center gap-4">
-        <div className="w-full max-w-4xl">
+      {/* items-center を削除し、w-full で左端を固定 */}
+      <div className="px-4 py-8 md:p-10 flex flex-col gap-4 w-full">
+        <div className="w-full max-w-4xl mx-auto">
           <div className="mb-4 flex gap-4 flex-wrap justify-between items-center">
             <div className="flex gap-2 flex-wrap">
               <button type="button"  onClick={isNameSortButtonClicked ? handleResetSort : handleSortByName} className="px-4 py-2 text-sm font-semibold text-gray-700 bg-gray-100 hover:bg-gray-200 rounded cursor-pointer">
@@ -137,7 +138,6 @@ export const PlayerSelect = (props: { initialSelectedIds: number[]; players: Pla
             </div>
           </div>
           
-          {/* テーブルコンテナ: overflow-x-auto を設定 */}
           <div className="overflow-x-auto rounded-xl border border-gray-200 shadow-sm bg-white w-full">
             <table className="w-full text-left border-collapse min-w-[600px] md:min-w-full">
               <thead className="bg-gray-50 border-b border-gray-200">
@@ -186,12 +186,14 @@ export const PlayerSelect = (props: { initialSelectedIds: number[]; players: Pla
           </div>
         </div>
         
-        <PaginationControl currentPage={currentPage} totalPages={totalPages} onPageChange={onPageChange} />
-        
-        <SubmitButton 
-          label={submitButtonLabel} 
-          className="w-full max-w-xs mt-4 px-6 py-3 font-bold text-white bg-blue-500 rounded-lg shadow-md hover:bg-blue-600 active:bg-blue-700 transition-all cursor-pointer disabled:bg-gray-400 disabled:cursor-not-allowed" 
-        />
+        <div className="flex flex-col items-center gap-4 w-full">
+          <PaginationControl currentPage={currentPage} totalPages={totalPages} onPageChange={onPageChange} />
+          
+          <SubmitButton 
+            label={submitButtonLabel} 
+            className="w-full max-w-xs mt-4 px-6 py-3 font-bold text-white bg-blue-500 rounded-lg shadow-md hover:bg-blue-600 active:bg-blue-700 transition-all cursor-pointer disabled:bg-gray-400 disabled:cursor-not-allowed mx-auto" 
+          />
+        </div>
       </div>
     </form>
   )
