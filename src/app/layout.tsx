@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { getLoggedInUser } from "@/actions/loginActions/getLoggedInUser";
 import { Header } from "@/components/common/header";
+import { MyContextProvider } from "./context";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,9 +25,9 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
   const user = await getLoggedInUser();
   const isLoggedIn: boolean = !!user;
+  const dataToPass: { user_state: boolean } = { user_state: isLoggedIn };
 
   return (
     <html
@@ -35,7 +36,9 @@ export default async function RootLayout({
     >
       <body className="bg-white min-h-full flex flex-col">
         <Header user_state={isLoggedIn} />
-        {children}
+        <MyContextProvider value={dataToPass}>
+          {children}
+        </MyContextProvider>
       </body>
     </html>
   );
