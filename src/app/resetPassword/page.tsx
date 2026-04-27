@@ -12,14 +12,14 @@ export const ResetPassword = () => {
 
   const onSubmit: SubmitHandler<LoginInputs> = async (data) => {
     setIsLoading(true);
-  // リセットメール経由で作られたセッションを使って、Supabase側でパスワードを更新する
+    // リセットメール経由で作られたセッションを使って、Supabase側でパスワードを更新する
     if (await resetPassword(data.password!)) {
       alert('パスワードのリセットに成功しました');
       router.push('/');
     } else {
       alert('パスワードのリセットに失敗しました。');
+      setIsLoading(false);
     }
-    setIsLoading(false);
   }
 
   return (

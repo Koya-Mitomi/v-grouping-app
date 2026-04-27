@@ -21,9 +21,6 @@ export const HomeWithNotLoggedIn = () => {
               >
                 詳しい機能や使い方はこちら
               </a>
-              <p className="text-xs text-gray-500">
-                ※ 詳細ページは準備中です
-              </p>
             </div>
           </div>
           <div className="mt-10 grid gap-4 sm:mt-12 sm:grid-cols-3">

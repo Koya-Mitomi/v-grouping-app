@@ -31,8 +31,8 @@ export const AddPlayer = () => {
       router.push(`/players?page=${page}&limit=${limit}`);
     } else {
       alert('プレイヤーの追加に失敗しました。');
+      setIsLoading(false);
     }
-    setIsLoading(false);
   }
 
   return (
