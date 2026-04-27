@@ -15,13 +15,13 @@ export const SignUp = () => {
     if (await signUp(data.user_name!, data.email!, data.password!)) {
       alert('メールを確認してください');
 
-  // verify画面を直アクセスされた場合のガード用（送信フロー経由かどうか）
+      // verify画面を直アクセスされた場合のガード用（送信フロー経由かどうか）
       sessionStorage.setItem('is_send_email', 'true');
       router.push('/signup/verify');
     } else {
       alert('サインアップ失敗');
+      setIsLoading(false);
     }
-    setIsLoading(false);
   }
 
   return (

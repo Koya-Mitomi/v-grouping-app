@@ -15,12 +15,12 @@ export const Login = () => {
     if (await login(data.email!, data.password!)) {
       alert('ログイン成功');
       router.refresh();
-  // ログイン状態で表示が変わるため、トップへ戻して再描画させる
+      // ログイン状態で表示が変わるため、トップへ戻して再描画させる
       router.push('/');
     } else {
       alert('メールアドレスまたはパスワードが正しくありません。');
+      setIsLoading(false);
     }
-    setIsLoading(false);
   }
 
   return (

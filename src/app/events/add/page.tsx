@@ -25,8 +25,8 @@ export const AddEvent = () => {
       router.push(`/events/${eventId}?page=${encodeURIComponent(page)}&limit=${encodeURIComponent(limit)}`);
     } else {
       alert('イベントの追加に失敗しました。');
+      setIsLoading(false);
     }
-    setIsLoading(false);
   }
 
   return (
