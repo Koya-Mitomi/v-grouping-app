@@ -31,7 +31,7 @@ export const TeamDetail = async ({ params, searchParams }: { params: Promise<{ i
   } = await getDefaultValues();
 
   return (
-    <div className='p-10 flex flex-col items-center gap-4'>
+    <div className='px-4 py-8 md:p-10 flex flex-col items-center gap-4'>
       <TeamForm eventId={eventId} defaultValues={defaultValues} teamId={teamId} page={page} limit={limit} />
       <BackButton path={`/events/${eventId}?page=${encodeURIComponent(page)}&limit=${encodeURIComponent(limit)}`} {...teamId !== null ? { message: "戻る" } : { message: "キャンセル" }} />
     </div>

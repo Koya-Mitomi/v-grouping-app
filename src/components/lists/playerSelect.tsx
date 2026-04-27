@@ -101,21 +101,21 @@ export const PlayerSelect = (props: { initialSelectedIds: number[]; players: Pla
       e.preventDefault();
       onConfirm(selectedIds);
     }}>
-      <div className="p-10 flex flex-col items-center gap-4">
+      <div className="px-4 py-8 md:p-10 flex flex-col items-center gap-4">
         <div className="w-full max-w-4xl">
-          <div className="mb-4 flex gap-2 flex-wrap justify-between items-center">
+          <div className="mb-4 flex gap-4 flex-wrap justify-between items-center">
             <div className="flex gap-2 flex-wrap">
               <button type="button"  onClick={isNameSortButtonClicked ? handleResetSort : handleSortByName} className="px-4 py-2 text-sm font-semibold text-gray-700 bg-gray-100 hover:bg-gray-200 rounded cursor-pointer">
-                {isNameSortButtonClicked ? "元に戻す" : "名前でソート"}
+                {isNameSortButtonClicked ? "元に戻す" : "名前順"}
               </button>
               <button type="button" onClick={isPositionSortButtonClicked ? handleResetSort : handleSortByPosition} className="px-4 py-2 text-sm font-semibold text-gray-700 bg-gray-100 hover:bg-gray-200 rounded cursor-pointer">
-                {isPositionSortButtonClicked ? "元に戻す" : "ポジションでソート"}
+                {isPositionSortButtonClicked ? "元に戻す" : "位置順"}
               </button>
               <button type="button" onClick={isLevelSortButtonClicked ? handleResetSort : handleSortByLevel} className="px-4 py-2 text-sm font-semibold text-gray-700 bg-gray-100 hover:bg-gray-200 rounded cursor-pointer">
-                {isLevelSortButtonClicked ? "元に戻す" : "レベルでソート"}
+                {isLevelSortButtonClicked ? "元に戻す" : "レベル順"}
               </button>
               <button type="button" onClick={isYearSortButtonClicked ? handleResetSort : handleSortByYear} className="px-4 py-2 text-sm font-semibold text-gray-700 bg-gray-100 hover:bg-gray-200 rounded cursor-pointer">
-                {isYearSortButtonClicked ? "元に戻す" : "学年でソート"}
+                {isYearSortButtonClicked ? "元に戻す" : "学年順"}
               </button>
             </div>
             <div className="flex items-center gap-2">
@@ -136,50 +136,62 @@ export const PlayerSelect = (props: { initialSelectedIds: number[]; players: Pla
               </select>
             </div>
           </div>
-          <div className="overflow-hidden rounded-xl border border-gray-200 shadow-sm bg-white">
-            <table className="w-full text-left border-collapse">
+          
+          {/* テーブルコンテナ: overflow-x-auto を設定 */}
+          <div className="overflow-x-auto rounded-xl border border-gray-200 shadow-sm bg-white w-full">
+            <table className="w-full text-left border-collapse min-w-[600px] md:min-w-full">
               <thead className="bg-gray-50 border-b border-gray-200">
               <tr>
-                <th colSpan={4} className="px-6 py-4 text-sm text-center font-semibold text-gray-600">プレイヤーを選択</th>
-                <th>
-                  <button type="button" onClick={handleSelectAll} className="px-6 py-4 text-sm text-center font-semibold text-gray-600 bg-blue-100 hover:bg-blue-200 cursor-pointer">
+                <th colSpan={4} className="px-4 md:px-6 py-4 text-sm text-center font-semibold text-gray-600">プレイヤーを選択</th>
+                <th className="px-0 py-0">
+                  <button type="button" onClick={handleSelectAll} className="w-full h-full px-4 py-4 text-sm text-center font-semibold text-gray-600 bg-blue-100 hover:bg-blue-200 cursor-pointer whitespace-nowrap">
                     全て選択
                   </button>
                 </th>
-                <th>
-                  <button type="button" onClick={handleDeselectAll} className="px-6 py-4 text-sm text-center font-semibold text-gray-600 bg-red-100 hover:bg-red-200 cursor-pointer">
+                <th className="px-0 py-0">
+                  <button type="button" onClick={handleDeselectAll} className="w-full h-full px-4 py-4 text-sm text-center font-semibold text-gray-600 bg-red-100 hover:bg-red-200 cursor-pointer whitespace-nowrap">
                     全て解除
                   </button>
                 </th>
               </tr>
             </thead>
-              <tbody className="divide-y divide-gray-100">
-                <tr>
-                  <th className="px-6 py-4 text-sm text-center font-semibold text-gray-600">選択</th>
-                  <th className="px-6 py-4 text-sm text-center font-semibold text-gray-600">名前</th>
-                  <th className="px-6 py-4 text-sm text-center font-semibold text-gray-600">ポジション</th>
-                  <th className="px-6 py-4 text-sm text-center font-semibold text-gray-600">レベル</th>
-                  <th className="px-6 py-4 text-sm text-center font-semibold text-gray-600">学年</th>
-                  <th className="px-6 py-4 text-sm text-center font-semibold text-gray-600">性別</th>
+              <tbody className="divide-y divide-gray-100 text-center">
+                <tr className="bg-gray-50/50">
+                  <th className="px-4 py-3 text-sm font-semibold text-gray-600">選択</th>
+                  <th className="px-4 py-3 text-sm font-semibold text-gray-600">名前</th>
+                  <th className="px-4 py-3 text-sm font-semibold text-gray-600">ポジション</th>
+                  <th className="px-4 py-3 text-sm font-semibold text-gray-600">レベル</th>
+                  <th className="px-4 py-3 text-sm font-semibold text-gray-600">学年</th>
+                  <th className="px-4 py-3 text-sm font-semibold text-gray-600">性別</th>
                 </tr>
                   {displayList.map((player) => (
-                  <tr key={player.id}>
-                    <td className="px-6 py-4 text-sm text-center font-medium text-gray-900">
-                      <input type="checkbox" checked={selectedIds.includes(player.id)} value={player.id} onChange={() => handleSelectPlayer(player.id)} />
+                  <tr key={player.id} className="hover:bg-gray-50 transition-colors">
+                    <td className="px-4 py-4">
+                      <input 
+                        type="checkbox" 
+                        checked={selectedIds.includes(player.id)} 
+                        onChange={() => handleSelectPlayer(player.id)} 
+                        className="w-4 h-4 cursor-pointer"
+                      />
                     </td>
-                    <td className="px-6 py-4 text-sm text-center text-gray-600">{player.name}</td>
-                    <td className="px-6 py-4 text-sm text-center text-gray-600">{player.position}</td>
-                    <td className="px-6 py-4 text-sm text-center text-gray-600">{player.level}</td>
-                    <td className="px-6 py-4 text-sm text-center text-gray-600">{player.year}</td>
-                    <td className="px-6 py-4 text-sm text-center text-gray-600">{player.gender}</td>
+                    <td className="px-4 py-4 text-sm font-medium text-gray-900 whitespace-nowrap">{player.name}</td>
+                    <td className="px-4 py-4 text-sm text-gray-600 whitespace-nowrap">{player.position}</td>
+                    <td className="px-4 py-4 text-sm text-gray-600">{player.level}</td>
+                    <td className="px-4 py-4 text-sm text-gray-600">{player.year}</td>
+                    <td className="px-4 py-4 text-sm text-gray-600 whitespace-nowrap">{player.gender}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
         </div>
+        
         <PaginationControl currentPage={currentPage} totalPages={totalPages} onPageChange={onPageChange} />
-        <SubmitButton label={submitButtonLabel} className="h-8 px-3 text-sm font-medium text-white bg-blue-500 border border-blue-300 rounded-md shadow-sm hover:bg-blue-600 active:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-offset-1 transition-colors cursor-pointer disabled:bg-gray-400 disabled:cursor-not-allowed" />
+        
+        <SubmitButton 
+          label={submitButtonLabel} 
+          className="w-full max-w-xs mt-4 px-6 py-3 font-bold text-white bg-blue-500 rounded-lg shadow-md hover:bg-blue-600 active:bg-blue-700 transition-all cursor-pointer disabled:bg-gray-400 disabled:cursor-not-allowed" 
+        />
       </div>
     </form>
   )

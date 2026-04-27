@@ -41,15 +41,15 @@ export const DisplayEvent = async ({ params, searchParams }: DisplayEventProps) 
   );
 
   return (
-    <div className="flex items-center flex-col gap-4 p-10">
+    <div className="flex items-center flex-col gap-4 px-4 py-8 md:p-10">
       <EventTitle eventId={event.id} initialTitle={event.title} />
       <NotificationHandler url={urlWithParams} />
-      <div className="grid grid-cols-2 gap-16 md:grid-cols-3 lg:grid-cols-4 auto-fit">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-16 w-full max-w-7xl justify-items-center">
         {teamsWithMembers.map(({ team, teamMembers }) => (
-          <div key={team.id} className="flex flex-col items-center">
+          <div key={team.id} className="flex flex-col items-center w-full">
             <TeamView key={team.id} teamName={team.team_name} teamMembers={teamMembers} />
-            <div className="flex gap-2 mt-2">
-              <a href={`${url}/teamDetail?teamName=${encodeURIComponent(team.team_name)}&memberIds=${teamMembers.map(member => member.id).join(',')}&teamId=${team.id}&${listQuery}`} className="mt-2 inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 cursor-pointer">
+            <div className="flex gap-2 mt-2 justify-center">
+              <a href={`${url}/teamDetail?teamName=${encodeURIComponent(team.team_name)}&memberIds=${teamMembers.map(member => member.id).join(',')}&teamId=${team.id}&${listQuery}`} className="mt-2 inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 cursor-pointer text-sm">
                 チーム詳細
               </a>
               <DeleteTeamButton id={team.id} name={team.team_name} />
@@ -57,16 +57,18 @@ export const DisplayEvent = async ({ params, searchParams }: DisplayEventProps) 
           </div>
         ))}
       </div>
-      <a href={`${url}/teamDetail?${listQuery}`} className="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
-        チームを追加
-      </a>
-      <a
-        href={`${url}/createTeams?${listQuery}`}
-        className="mt-2 inline-block bg-gradient-to-b from-orange-400 to-orange-600 text-white font-bold px-6 py-3 rounded-lg shadow-lg hover:shadow-xl hover:scale-105 transition-transform duration-150 cursor-pointer border-2 border-orange-700"
-      >
-        チームを自動生成
-      </a>
-  <BackButton path={`/events?page=${encodeURIComponent(page)}&limit=${encodeURIComponent(limit)}`} message="戻る" />
+      <div className="flex flex-col gap-2 w-full max-w-xs mt-4">
+        <a href={`${url}/teamDetail?${listQuery}`} className="text-center bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+          チームを追加
+        </a>
+        <a
+          href={`${url}/createTeams?${listQuery}`}
+          className="text-center bg-gradient-to-b from-orange-400 to-orange-600 text-white font-bold px-6 py-3 rounded-lg shadow-lg hover:shadow-xl hover:scale-105 transition-transform duration-150 cursor-pointer border-2 border-orange-700"
+        >
+          チームを自動生成
+        </a>
+      </div>
+      <BackButton path={`/events?page=${encodeURIComponent(page)}&limit=${encodeURIComponent(limit)}`} message="戻る" />
     </div>
   )
 }
