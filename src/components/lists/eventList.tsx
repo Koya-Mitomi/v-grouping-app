@@ -4,13 +4,13 @@ import { DeleteEventButton } from "../buttons/deleteEventButton";
 import { useState } from "react";
 import { PaginationControl } from "./paginationControl";
 
-export const EventList = (props: { eventList: Event[] }) => {
-  const { eventList } = props;
+export const EventList = (props: { eventList: Event[]; initialCurrentPage: number; initialPageLimit: number }) => {
+  const { eventList, initialCurrentPage, initialPageLimit } = props;
   const [sortedEventList, setSortedEventList] = useState<Event[]>(eventList);
   const [isClicked, setIsClicked] = useState(false);
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(20);
+  const [currentPage, setCurrentPage] = useState(initialCurrentPage);
+  const [itemsPerPage, setItemsPerPage] = useState(initialPageLimit);
   const totalPages = Math.ceil(sortedEventList.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const displayList = sortedEventList.slice(startIndex, startIndex + itemsPerPage);
@@ -40,6 +40,13 @@ export const EventList = (props: { eventList: Event[] }) => {
   return (
     <div className="p-10 flex flex-col items-center gap-4">
       <h1 className="text-2xl font-bold mb-6 text-gray-800 pl-4">イベント一覧</h1>
+
+      <a
+        href={`/events/add?page=${currentPage}&limit=${itemsPerPage}`}
+        className="px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:bg-gray-400 cursor-pointer text-center"
+      >
+        イベントを作成
+      </a>
 
       <div className="w-full max-w-4xl">
         <div className="mb-4 flex gap-2 flex-wrap">
@@ -83,7 +90,10 @@ export const EventList = (props: { eventList: Event[] }) => {
                 displayList.map((event) => (
                   <tr key={event.id}>
                     <td className="px-6 py-4 text-sm text-center text-gray-700">
-                      <a href={`/events/${event.id}`} className="text-blue-700 text-lg cursor-pointer hover:text-blue-900">
+                      <a
+                        href={`/events/${event.id}?page=${currentPage}&limit=${itemsPerPage}`}
+                        className="text-blue-700 text-lg cursor-pointer hover:text-blue-900"
+                      >
                         {event.title}
                       </a>
                     </td>

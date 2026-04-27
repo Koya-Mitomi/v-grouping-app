@@ -13,10 +13,10 @@ import { deleteTeam } from "@/actions/teamActions/deleteTeam";
 import { TeamViewWithDetail } from "./teamViewWithDetail";
 import { editPlayerActivations } from "@/actions/playerActions/editPlayer";
 
-export const CreateRandomTeams = ( props: {eventId: number; playerIds: number[]; allPlayers: Player[]} ) => {
-  const { eventId, playerIds, allPlayers } = props;
+export const CreateRandomTeams = ( props: {eventId: number; playerIds: number[]; allPlayers: Player[]; page?: string; limit?: string} ) => {
+  const { eventId, playerIds, allPlayers, page = '1', limit = '20' } = props;
   const baseUrl: string = `/events/${eventId}`;
-  const cancelUrl: string = `${baseUrl}`;
+  const cancelUrl: string = `${baseUrl}?page=${encodeURIComponent(page)}&limit=${encodeURIComponent(limit)}`;
   const router = useRouter();
 
   const [isLoading, setIsLoading] = useState(false);
@@ -71,7 +71,7 @@ const onClickSaveButton = async () => {
   await editPlayerActivations(restPlayerIds, false);
   await editPlayerActivations(selectedPlayerIds, true);
 
-  router.push(baseUrl);
+  router.push(cancelUrl);
 };
 
   return (

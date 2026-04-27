@@ -22,7 +22,7 @@ export async function middleware(request: NextRequest) {
 
   const user = await supabase.auth.getUser();
 
-  if (user.error && !request.nextUrl.pathname.startsWith('/login') && !request.nextUrl.pathname.startsWith('/signup') 
+  if (user.error && !(request.nextUrl.pathname === ('/howToUse')) && !request.nextUrl.pathname.startsWith('/login') && !request.nextUrl.pathname.startsWith('/signup') 
     && !request.nextUrl.pathname.startsWith('/forgotPassword') && !request.nextUrl.pathname.startsWith('/resetPassword') 
     && !request.nextUrl.pathname.startsWith('/auth') && !(request.nextUrl.pathname === ('/'))) {
     return NextResponse.redirect(new URL('/login', request.url));

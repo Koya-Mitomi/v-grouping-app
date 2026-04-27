@@ -2,19 +2,23 @@
 
 import { findAllEvents } from "@/actions/eventActions/findEvents";
 import { BackButton } from "@/components/common/backButton";
-import { DeleteEventButton } from "@/components/buttons/deleteEventButton";
 import { EventList } from "@/components/lists/eventList";
 import { Event } from "@/types/event";
 
-export const Events = async () => {
+type EventsPageProps = {
+  searchParams?: Promise<{ page?: string; limit?: string }>;
+};
+
+export const Events = async ({ searchParams }: EventsPageProps) => {
   const eventList: Event[] = await findAllEvents();
+
+  const resolvedSearchParams = (await searchParams) ?? {};
+  const initialCurrentPage = Math.max(1, Number(resolvedSearchParams.page ?? 1));
+  const initialPageLimit = Math.max(1, Number(resolvedSearchParams.limit ?? 20));
 
   return (
     <div className="p-10 flex flex-col items-center gap-4">
-      <EventList eventList={eventList} />
-      <a href="/events/add" className="px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:bg-gray-400 cursor-pointer text-center">
-        イベントを作成
-      </a>
+      <EventList eventList={eventList} initialCurrentPage={initialCurrentPage} initialPageLimit={initialPageLimit} />
       <BackButton path="/" message="戻る" />
     </div>
   )

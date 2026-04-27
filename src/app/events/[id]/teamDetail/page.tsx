@@ -11,6 +11,8 @@ export const TeamDetail = async ({ params, searchParams }: { params: Promise<{ i
   const teamName: string = (resolvedSearchParams.teamName as string) || '';
   const eventId = parseInt(resolvedParams.id);
   const teamId: number | null = resolvedSearchParams.teamId ? parseInt(resolvedSearchParams.teamId as string, 10) : null; 
+  const page = (resolvedSearchParams.page as string) || '1';
+  const limit = (resolvedSearchParams.limit as string) || '20';
 
   const getDefaultValues = async () => {
     let teamMembers: Player[] = [];
@@ -31,7 +33,7 @@ export const TeamDetail = async ({ params, searchParams }: { params: Promise<{ i
   return (
     <div className='p-10 flex flex-col items-center gap-4'>
       <TeamForm eventId={eventId} defaultValues={defaultValues} teamId={teamId} />
-      <BackButton path={`/events/${eventId}`} {...teamId !== null ? { message: "戻る" } : { message: "キャンセル" }} />
+  <BackButton path={`/events/${eventId}?page=${encodeURIComponent(page)}&limit=${encodeURIComponent(limit)}`} {...teamId !== null ? { message: "戻る" } : { message: "キャンセル" }} />
     </div>
   )
 }
