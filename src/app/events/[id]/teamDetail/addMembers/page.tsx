@@ -1,7 +1,7 @@
 'use server';
 
 import { findAllPlayers, findPlayersByEventId, findPlayersByTeamId } from "@/actions/playerActions/findPlayers";
-import { AddTeamMember } from "@/components/addTeamMember";
+import { AddTeamMember } from "@/components/forms/addTeamMember";
 import { Player } from "@/types/player";
 
 export const AddMembers = async ({ params, searchParams }: { params: Promise<{ id: string }>, searchParams: Promise<{ [key: string]: string | string[] | undefined }> }) => {

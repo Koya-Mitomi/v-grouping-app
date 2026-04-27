@@ -1,8 +1,8 @@
 'use server';
 
 import { findAllPlayers } from "@/actions/playerActions/findPlayers";
-import { BackButton } from "@/components/backButton";
-import { PlayerList } from "@/components/playerList";
+import { BackButton } from "@/components/common/backButton";
+import { PlayerList } from "@/components/lists/playerList";
 import { Player } from "@/types/player";
 
 export const Players = async ({searchParams} : {searchParams: { [key: string]: string | string[] | undefined }}) => {

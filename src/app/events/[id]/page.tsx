@@ -3,12 +3,12 @@
 import { findEventById } from "@/actions/eventActions/findEvents";
 import { findPlayersByTeamId } from "@/actions/playerActions/findPlayers";
 import { findTeamsByEventId } from "@/actions/teamActions/findTeams";
-import { BackButton } from "@/components/backButton";
-import { CreateRandomTeamsPageButton } from "@/components/createRandomTeamsPageButton";
-import { DeleteTeamButton } from "@/components/deleteTeamButton";
-import { EventTitle } from "@/components/eventTitle";
-import { NotificationHandler } from "@/components/notificationHandler";
-import { TeamView } from "@/components/teamView";
+import { BackButton } from "@/components/common/backButton";
+import { CreateRandomTeamsPageButton } from "@/components/buttons/createRandomTeamsPageButton";
+import { DeleteTeamButton } from "@/components/buttons/deleteTeamButton";
+import { EventTitle } from "@/components/events/eventTitle";
+import { NotificationHandler } from "@/components/common/notificationHandler";
+import { TeamView } from "@/components/teams/teamView";
 import { Team } from "@/types/team";
 
 export const DisplayEvent = async ({ params }: { params: Promise<{ id: string }> }) => {

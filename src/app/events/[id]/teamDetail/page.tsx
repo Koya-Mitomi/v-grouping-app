@@ -1,7 +1,7 @@
 'use server';
 import { findPlayersByIds } from '@/actions/playerActions/findPlayers';
-import { BackButton } from '@/components/backButton';
-import { TeamForm } from '@/components/teamForm';
+import { BackButton } from '@/components/common/backButton';
+import { TeamForm } from '@/components/forms/teamForm';
 import { Player } from '@/types/player';
 
 export const TeamDetail = async ({ params, searchParams }: { params: Promise<{ id: string }>, searchParams: Promise<{ [key: string]: string | string[] | undefined }> }) => {

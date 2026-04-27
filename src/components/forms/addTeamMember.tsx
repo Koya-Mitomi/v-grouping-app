@@ -1,8 +1,8 @@
 'use client';
 
 import { Player } from "@/types/player";
-import { BackButton } from "./backButton";
-import { PlayerSelect } from "./playerSelect";
+import { BackButton } from "../common/backButton";
+import { PlayerSelect } from "../lists/playerSelect";
 import { useRouter } from "next/navigation";
 
 export const AddTeamMember = ( props: {eventId: number; teamName: string; playerIds: number[]; allPlayers: Player[]} ) => {

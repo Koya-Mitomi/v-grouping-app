@@ -1,7 +1,7 @@
 'use client';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { PlayerInputs } from '@/types/player';
-import { SubmitButton } from './submitButton';
+import { SubmitButton } from '../buttons/submitButton';
 
 const positions: { label: string; value: string }[] = [
   { label: 'セッター（S）', value: 'S' },

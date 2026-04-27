@@ -1,5 +1,5 @@
 'use client';
-import { LoginForm } from '@/components/loginForm';
+import { LoginForm } from '@/components/auth/loginForm';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react'
 import { SubmitHandler } from 'react-hook-form';

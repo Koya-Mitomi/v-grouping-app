@@ -2,7 +2,7 @@
 
 import { EventInputs } from "@/types/event";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { SubmitButton } from "./submitButton";
+import { SubmitButton } from "../buttons/submitButton";
 
 export const EventForm = (props: {formname: string; defaults: EventInputs; isLoading: boolean; onSubmit: SubmitHandler<EventInputs>}) => {
   const { formname, defaults, isLoading, onSubmit } = props;

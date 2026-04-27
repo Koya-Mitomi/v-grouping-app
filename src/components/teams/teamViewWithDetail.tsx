@@ -5,7 +5,7 @@ import { Player } from "@/types/player";
 export const TeamViewWithDetail = (props: { teamName: string; teamMembers: Player[] }) => {
   const { teamName, teamMembers } = props;
   return (
-    <div className="w-100 h-[30rem] rounded-xl border border-blue-200 p-3 shadow-lg flex flex-col">
+    <div className="w-103 h-[30rem] rounded-xl border border-blue-200 p-3 shadow-lg flex flex-col">
       <h2 className="text-lg font-bold text-center text-gray-800 my-2 pb-1 border-b-2 border-blue-300 truncate">{teamName}</h2>
       
       <div className="space-y-1 flex-1 overflow-y-auto">

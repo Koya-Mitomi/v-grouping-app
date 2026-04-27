@@ -1,7 +1,7 @@
 'use client';
 
 import { Player } from "@/types/player";
-import { DeletePlayerButton } from "./deletePlayerButton";
+import { DeletePlayerButton } from "../buttons/deletePlayerButton";
 import { useEffect, useState } from "react";
 import { PaginationControl } from "./paginationControl";
 

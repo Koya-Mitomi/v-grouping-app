@@ -1,8 +1,8 @@
 'use client';
 
 import { Player } from "@/types/player";
-import { BackButton } from "./backButton";
-import { PlayerSelect } from "./playerSelect";
+import { BackButton } from "../common/backButton";
+import { PlayerSelect } from "../lists/playerSelect";
 import { useRouter } from "next/navigation";
 import { findPlayersByIds } from "@/actions/playerActions/findPlayers";
 import { randomDivideTeams, randomDivideTeamsByYear } from "@/lib/functions/teamDivider";
