@@ -56,7 +56,7 @@ npm install
 
 ### 2) 環境変数の設定
 
-Supabaseを利用している場合、`.env.local` を作成し、必要な値を設定してください。
+Supabaseを利用しているので`.env.local` を作成し、必要な値を設定してください。
 
 例：
 
