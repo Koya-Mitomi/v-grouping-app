@@ -110,7 +110,7 @@ export const PlayerSelect = (props: { initialSelectedIds: number[]; players: Pla
                 {isNameSortButtonClicked ? "元に戻す" : "名前順"}
               </button>
               <button type="button" onClick={isPositionSortButtonClicked ? handleResetSort : handleSortByPosition} className="px-4 py-2 text-sm font-semibold text-gray-700 bg-gray-100 hover:bg-gray-200 rounded cursor-pointer">
-                {isPositionSortButtonClicked ? "元に戻す" : "位置順"}
+                {isPositionSortButtonClicked ? "元に戻す" : "ポジション順"}
               </button>
               <button type="button" onClick={isLevelSortButtonClicked ? handleResetSort : handleSortByLevel} className="px-4 py-2 text-sm font-semibold text-gray-700 bg-gray-100 hover:bg-gray-200 rounded cursor-pointer">
                 {isLevelSortButtonClicked ? "元に戻す" : "レベル順"}
@@ -137,7 +137,7 @@ export const PlayerSelect = (props: { initialSelectedIds: number[]; players: Pla
               </select>
             </div>
           </div>
-          
+
           <div className="overflow-x-auto rounded-xl border border-gray-200 shadow-sm bg-white w-full">
             <table className="w-full text-left border-collapse min-w-[600px] md:min-w-full">
               <thead className="bg-gray-50 border-b border-gray-200">
@@ -167,10 +167,10 @@ export const PlayerSelect = (props: { initialSelectedIds: number[]; players: Pla
                   {displayList.map((player) => (
                   <tr key={player.id} className="hover:bg-gray-50 transition-colors">
                     <td className="px-4 py-4">
-                      <input 
-                        type="checkbox" 
-                        checked={selectedIds.includes(player.id)} 
-                        onChange={() => handleSelectPlayer(player.id)} 
+                      <input
+                        type="checkbox"
+                        checked={selectedIds.includes(player.id)}
+                        onChange={() => handleSelectPlayer(player.id)}
                         className="w-4 h-4 cursor-pointer"
                       />
                     </td>
@@ -185,13 +185,13 @@ export const PlayerSelect = (props: { initialSelectedIds: number[]; players: Pla
             </table>
           </div>
         </div>
-        
+
         <div className="flex flex-col items-center gap-4 w-full">
           <PaginationControl currentPage={currentPage} totalPages={totalPages} onPageChange={onPageChange} />
-          
-          <SubmitButton 
-            label={submitButtonLabel} 
-            className="w-full max-w-xs mt-4 px-6 py-3 font-bold text-white bg-blue-500 rounded-lg shadow-md hover:bg-blue-600 active:bg-blue-700 transition-all cursor-pointer disabled:bg-gray-400 disabled:cursor-not-allowed mx-auto" 
+
+          <SubmitButton
+            label={submitButtonLabel}
+            className="w-full max-w-xs mt-4 px-6 py-3 font-bold text-white bg-blue-500 rounded-lg shadow-md hover:bg-blue-600 active:bg-blue-700 transition-all cursor-pointer disabled:bg-gray-400 disabled:cursor-not-allowed mx-auto"
           />
         </div>
       </div>

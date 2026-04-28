@@ -167,7 +167,7 @@ const onClickSaveButton = async () => {
         <PlayerSelect initialSelectedIds={playerIds} players={allPlayers} submitButtonLabel="ランダムにチームを生成" onConfirm={onConfirm} />
       </div>
 
-      {generatedTeams.length > 0 && 
+      {generatedTeams.length > 0 &&
         <div className="flex flex-col gap-4 w-full mt-8">
           <div className="flex flex-wrap justify-center gap-6 md:gap-16">
             {generatedTeams.map((members, index) => (
@@ -176,10 +176,10 @@ const onClickSaveButton = async () => {
               </div>
             ))}
           </div>
-          <button 
-            disabled={isLoading} 
-            onClick={onClickSaveButton} 
-            className="bg-green-500 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg shadow-md mx-auto transition-colors disabled:bg-gray-400 cursor-pointer"
+          <button
+            disabled={isLoading}
+            onClick={onClickSaveButton}
+            className="bg-green-500 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg shadow-md mx-auto transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
           >
             {isLoading ? "処理中..." : "このチーム分けを確定して保存"}
           </button>
