@@ -8,7 +8,7 @@ export const CreateTeams = async ({
   searchParams,
 }: {
   params: Promise<{ id: string }>;
-  searchParams?: Promise<{ page?: string; limit?: string }>;
+  searchParams?: Promise<{ page?: string; limit?: string; sorted?: string }>;
 }) => {
   const resolvedParams = await params;
   const eventId = parseInt(resolvedParams.id);
@@ -19,9 +19,9 @@ export const CreateTeams = async ({
   const resolvedSearchParams = (await searchParams) ?? {};
   const page = resolvedSearchParams.page ?? '1';
   const limit = resolvedSearchParams.limit ?? '20';
-
+  const sorted = resolvedSearchParams.sorted ?? 'initial';
   return (
-    <CreateRandomTeams eventId={eventId} playerIds={activePlayerIds} allPlayers={allPlayers} page={page} limit={limit} />
+    <CreateRandomTeams eventId={eventId} playerIds={activePlayerIds} allPlayers={allPlayers} page={page} limit={limit} sorted={sorted} />
   )
 }
 

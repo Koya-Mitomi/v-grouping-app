@@ -12,6 +12,7 @@ export const EditPlayer = async ({ params, searchParams }: { params: Promise<{ i
   // 一覧のページ状態（page/limit）を保持して、編集完了後に同じ位置へ戻す
   const page = parseInt(resolvedSearchParams.page as string) || 1;
   const limit = parseInt(resolvedSearchParams.limit as string) || 20;
+  const sorted = resolvedSearchParams.sorted as string || "initial";
   const playerId = parseInt(resolvedParams.id);
   const player = await findPlayerById(playerId);
   if (player === null) {
@@ -26,7 +27,7 @@ export const EditPlayer = async ({ params, searchParams }: { params: Promise<{ i
   };
 
   return (
-    <EditPlayerForm playerId={playerId} formname="編集" defaults={defaultValues} page={page} limit={limit} />
+    <EditPlayerForm playerId={playerId} formname="編集" defaults={defaultValues} page={page} limit={limit} sorted={sorted} />
   )
 }
 

@@ -17,6 +17,7 @@ export const TeamDetail = async ({ params, searchParams }: { params: Promise<{ i
   // 一覧(/events)のpage/limitを引き回して、どの画面から戻っても一覧の状態が崩れないようにする
   const page = (resolvedSearchParams.page as string) || '1';
   const limit = (resolvedSearchParams.limit as string) || '20';
+  const sorted = (resolvedSearchParams.sorted as string) || 'initial';
 
   const getDefaultValues = async () => {
     let teamMembers: Player[] = [];
@@ -36,8 +37,8 @@ export const TeamDetail = async ({ params, searchParams }: { params: Promise<{ i
 
   return (
     <div className='px-4 py-8 md:p-10 flex flex-col items-center gap-4'>
-      <TeamForm eventId={eventId} defaultValues={defaultValues} teamId={teamId} page={page} limit={limit} />
-      <BackButton path={`/events/${eventId}?page=${encodeURIComponent(page)}&limit=${encodeURIComponent(limit)}`} {...teamId !== null ? { message: "戻る" } : { message: "キャンセル" }} />
+      <TeamForm eventId={eventId} defaultValues={defaultValues} teamId={teamId} page={page} limit={limit} sorted={sorted} />
+      <BackButton path={`/events/${eventId}?page=${encodeURIComponent(page)}&limit=${encodeURIComponent(limit)}&sorted=${encodeURIComponent(sorted)}`} {...teamId !== null ? { message: "戻る" } : { message: "キャンセル" }} />
     </div>
   )
 }

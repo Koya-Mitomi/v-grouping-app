@@ -4,18 +4,18 @@ import { submitTeam } from '@/actions/teamActions/submitTeam';
 import { TeamName } from '../teams/teamName';
 import { SubmitButton } from '../buttons/submitButton';
 
-export const TeamForm = async (props: { eventId: number; defaultValues: { teamName: string; teamMembers: Player[] }; teamId: number | null; page: string; limit: string }) => {
-  const { eventId, defaultValues, teamId, page, limit } = props;
+export const TeamForm = async (props: { eventId: number; defaultValues: { teamName: string; teamMembers: Player[] }; teamId: number | null; page: string; limit: string; sorted: string }) => {
+  const { eventId, defaultValues, teamId, page, limit, sorted } = props;
   const memberIds = defaultValues.teamMembers.map(member => member.id).join(',');
 
   // 保存後に「一覧のpage/limit」を維持して戻すため、server actionにpage/limitを事前バインドしておく
-  const submitTeamWithParams = submitTeam.bind(null, page, limit);
+  const submitTeamWithParams = submitTeam.bind(null, page, limit, sorted);
 
   return (
     <div className="w-full max-w-4xl">
       <div className="px-0 py-4 md:p-10 flex flex-col items-center gap-4">
         <form action={submitTeamWithParams} className="w-full px-0 py-4 md:p-10 flex flex-col items-center gap-6">
-          <TeamName initialTeamName={defaultValues.teamName} eventId={eventId} memberIds={memberIds.split(',').map(str => parseInt(str, 10))} teamId={teamId} page={page} limit={limit} />
+          <TeamName initialTeamName={defaultValues.teamName} eventId={eventId} memberIds={memberIds.split(',').map(str => parseInt(str, 10))} teamId={teamId} page={page} limit={limit} sorted={sorted} />
           <input type="hidden" name='eventId' value={eventId} />
           {/* server action側でメンバー更新に使うため、選択中のmemberIdsはhiddenで送る */}
           <input type="hidden" name="memberIds" value={memberIds} />

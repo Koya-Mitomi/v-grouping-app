@@ -66,7 +66,7 @@ export function randomDivideTeams(
   });
 
   // シャッフルされたプレイヤーを順番にチームに割り当てる
-  // 人数がバランスよくなるように一人ずつチームに追加してい木、余りは人数の少ないチームに割り当てる
+  // 人数がバランスよくなるように一人ずつチームに追加していき、余りは人数の少ないチームに割り当てる
 
   // プレイヤーをチーム数で割った余りの部分を切り分けておく
   let restPlayers: Player[] = players.slice(-1 * (totalPlayers % teamNum));

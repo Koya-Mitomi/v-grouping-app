@@ -1,18 +1,16 @@
 'use client';
-
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { set } from "react-hook-form";
 
-export const CreateRandomTeamsPageButton = (props: { eventId: number }) => {
-  const { eventId } = props;
+export const CreateRandomTeamsPageButton = (props: { eventId: number; page: string; limit: string; sorted: string }) => {
+  const { eventId, page, limit, sorted } = props;
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
   const onClickButton = () => {
     setIsLoading(true);
     if (confirm(`ランダムにチームを生成する際、もし既にチームを作成している場合は上書きされます。\n\nプレイヤー選択画面へ移動しますか？`)) {
-      router.push(`/events/${eventId}/createTeams`);
+      router.push(`/events/${eventId}/createTeams?page=${encodeURIComponent(page)}&limit=${encodeURIComponent(limit)}&sorted=${encodeURIComponent(sorted)}`);
     } else {
       setIsLoading(false);
     }

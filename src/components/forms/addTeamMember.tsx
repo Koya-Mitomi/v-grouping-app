@@ -5,19 +5,19 @@ import { BackButton } from "../common/backButton";
 import { PlayerSelect } from "../lists/playerSelect";
 import { useRouter } from "next/navigation";
 
-export const AddTeamMember = ( props: {eventId: number; teamName: string; playerIds: number[]; allPlayers: Player[]; page: string; limit: string; teamId: number | null} ) => {
-  const { eventId, teamName, playerIds, allPlayers, page, limit, teamId } = props;
+export const AddTeamMember = ( props: {eventId: number; teamName: string; playerIds: number[]; allPlayers: Player[]; page: string; limit: string; sorted: string; teamId: number | null} ) => {
+  const { eventId, teamName, playerIds, allPlayers, page, limit, sorted, teamId } = props;
 
   // ここは「メンバー選択」専用画面。確定後はteamDetailにmemberIdsを載せて戻す。
   const baseUrl: string = `/events/${eventId}/teamDetail?teamName=${teamName}`;
-  let cancelUrl: string = `${baseUrl}&memberIds=${playerIds.join(',')}&page=${page}&limit=${limit}`;
+  let cancelUrl: string = `${baseUrl}&memberIds=${playerIds.join(',')}&page=${page}&limit=${limit}&sorted=${sorted}`;
   if (teamId !== null) {
     cancelUrl += `&teamId=${teamId}`;
   }
   const router = useRouter();
   const onConfirm = (selectedIds: number[]) => {
     // 選択されたプレイヤーIDをクエリに載せ、teamDetail側でメンバー一覧を復元する
-    let redirectUrl: string = `${baseUrl}&memberIds=${selectedIds.join(',')}&page=${page}&limit=${limit}`;
+    let redirectUrl: string = `${baseUrl}&memberIds=${selectedIds.join(',')}&page=${page}&limit=${limit}&sorted=${sorted}`;
     if (teamId !== null) {
       redirectUrl += `&teamId=${teamId}`;
     }

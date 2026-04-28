@@ -7,8 +7,9 @@ import { PaginationControl } from "./paginationControl";
 
 export const PlayerSelect = (props: { initialSelectedIds: number[]; players: Player[]; submitButtonLabel: string; onConfirm: (selectedIds: number[]) => void }) => {
   const { initialSelectedIds, players, submitButtonLabel, onConfirm } = props;
+  const sortedPlayersById = [...players].sort((a, b) => a.id - b.id);
   const [selectedIds, setSelectedIds] = useState<number[]>(initialSelectedIds);
-  const [sortedPlayers, setSortedPlayers] = useState<Player[]>(players);
+  const [sortedPlayers, setSortedPlayers] = useState<Player[]>(sortedPlayersById);
   const [isNameSortButtonClicked, setIsNameSortButtonClicked] = useState(false);
   const [isPositionSortButtonClicked, setIsPositionSortButtonClicked] = useState(false);
   const [isLevelSortButtonClicked, setIsLevelSortButtonClicked] = useState(false);
@@ -88,7 +89,7 @@ export const PlayerSelect = (props: { initialSelectedIds: number[]; players: Pla
   };
 
   const handleResetSort = () => {
-    setSortedPlayers(players);
+    setSortedPlayers(sortedPlayersById);
     setIsNameSortButtonClicked(false);
     setIsPositionSortButtonClicked(false);
     setIsLevelSortButtonClicked(false);
