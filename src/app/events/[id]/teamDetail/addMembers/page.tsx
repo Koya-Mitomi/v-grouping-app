@@ -13,6 +13,7 @@ export const AddMembers = async ({ params, searchParams }: { params: Promise<{ i
   const eventId: number = parseInt(resolvedParams.id);
   const page: string = (resolvedSearchParams.page as string) || '1';
   const limit: string = (resolvedSearchParams.limit as string) || '20';
+  const sorted: string = (resolvedSearchParams.sorted as string) || 'initial';
   const allPlayers: Player[] = await findAllPlayers();
   const playersInThisEvent: Player[] = await findPlayersByEventId(eventId);
   const playersInThisTeam: Player[] = [];
@@ -30,7 +31,7 @@ export const AddMembers = async ({ params, searchParams }: { params: Promise<{ i
   });
 
   return (
-    <AddTeamMember eventId={eventId} teamName={teamName} playerIds={playerIds} allPlayers={availablePlayers} page={page} limit={limit} teamId={teamId} />
+    <AddTeamMember eventId={eventId} teamName={teamName} playerIds={playerIds} allPlayers={availablePlayers} page={page} limit={limit} teamId={teamId} sorted={sorted} />
   )
 }
 

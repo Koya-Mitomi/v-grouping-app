@@ -13,11 +13,11 @@ import { deleteTeam } from "@/actions/teamActions/deleteTeam";
 import { TeamViewWithDetail } from "./teamViewWithDetail";
 import { editPlayerActivations } from "@/actions/playerActions/editPlayer";
 
-export const CreateRandomTeams = ( props: {eventId: number; playerIds: number[]; allPlayers: Player[]; page?: string; limit?: string} ) => {
-  const { eventId, playerIds, allPlayers, page = '1', limit = '20' } = props;
+export const CreateRandomTeams = ( props: {eventId: number; playerIds: number[]; allPlayers: Player[]; page?: string; limit?: string; sorted?: string} ) => {
+  const { eventId, playerIds, allPlayers, page = '1', limit = '20', sorted = 'initial' } = props;
   const baseUrl: string = `/events/${eventId}`;
-  // 一覧で選んでいたpage/limitを維持してイベント詳細に戻せるよう、detail側URLにクエリを付けておく
-  const cancelUrl: string = `${baseUrl}?page=${encodeURIComponent(page)}&limit=${encodeURIComponent(limit)}`;
+  // 一覧で選んでいたpage/limit/sortedを維持してイベント詳細に戻せるよう、detail側URLにクエリを付けておく
+  const redirectUrl: string = `${baseUrl}?page=${encodeURIComponent(page)}&limit=${encodeURIComponent(limit)}&sorted=${encodeURIComponent(sorted)}`;
   const router = useRouter();
 
   const [isLoading, setIsLoading] = useState(false);
@@ -75,7 +75,7 @@ const onClickSaveButton = async () => {
   await editPlayerActivations(restPlayerIds, false);
   await editPlayerActivations(selectedPlayerIds, true);
 
-  router.push(cancelUrl);
+  router.push(redirectUrl);
 };
 
   return (
@@ -179,7 +179,7 @@ const onClickSaveButton = async () => {
           <button
             disabled={isLoading}
             onClick={onClickSaveButton}
-            className="bg-green-500 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg shadow-md mx-auto transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
+            className="bg-green-500 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg shadow-md mx-auto transition-colors cursor-pointer disabled:bg-gray-400 disabled:cursor-not-allowed"
           >
             {isLoading ? "処理中..." : "このチーム分けを確定して保存"}
           </button>
@@ -187,7 +187,7 @@ const onClickSaveButton = async () => {
       }
 
       <div className="mx-auto">
-        <BackButton path={cancelUrl} message="キャンセル" />
+        <BackButton path={redirectUrl} message="キャンセル" />
       </div>
     </div>
   )

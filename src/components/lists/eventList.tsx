@@ -4,10 +4,14 @@ import { DeleteEventButton } from "../buttons/deleteEventButton";
 import { useState } from "react";
 import { PaginationControl } from "./paginationControl";
 
-export const EventList = (props: { eventList: Event[]; initialCurrentPage: number; initialPageLimit: number }) => {
-  const { eventList, initialCurrentPage, initialPageLimit } = props;
-  const [sortedEventList, setSortedEventList] = useState<Event[]>(eventList);
-  const [isClicked, setIsClicked] = useState(false);
+export const EventList = (props: { eventList: Event[]; initialCurrentPage: number; initialPageLimit: number; initialSortedState: string }) => {
+  const { eventList, initialCurrentPage, initialPageLimit, initialSortedState } = props;
+  const sortedEventListById = [...eventList].sort((a, b) => a.id - b.id);
+  const sortedEventListByName = [...eventList].sort((a, b) => a.title !== b.title ? a.title.localeCompare(b.title) : a.id - b.id);
+  const initialSortedList = initialSortedState === "name" ? sortedEventListByName : sortedEventListById;
+  const [sortedEventList, setSortedEventList] = useState<Event[]>(initialSortedList);
+  const [isClicked, setIsClicked] = useState(initialSortedState === "name");
+  const [sortedState, setSortedState] = useState(initialSortedState);
 
   const [currentPage, setCurrentPage] = useState(initialCurrentPage);
   const [itemsPerPage, setItemsPerPage] = useState(initialPageLimit);
@@ -27,15 +31,16 @@ export const EventList = (props: { eventList: Event[]; initialCurrentPage: numbe
   };
 
   const handleSortByName = () => {
-    const sorted = [...sortedEventList].sort((a, b) => a.title.localeCompare(b.title));
-    setSortedEventList(sorted);
+    setSortedEventList(sortedEventListByName);
     setIsClicked(true);
+    setSortedState("name");
     setCurrentPage(1);
   };
 
   const handleResetSort = () => {
-    setSortedEventList(eventList);
+    setSortedEventList(sortedEventListById);
     setIsClicked(false);
+    setSortedState("initial");
     setCurrentPage(1);
   };
 
@@ -44,7 +49,7 @@ export const EventList = (props: { eventList: Event[]; initialCurrentPage: numbe
       <h1 className="text-xl md:text-2xl font-bold mb-6 text-gray-800 text-center">イベント一覧</h1>
 
       <a
-        href={`/events/add?page=${currentPage}&limit=${itemsPerPage}`}
+        href={`/events/add?page=${currentPage}&limit=${itemsPerPage}&sorted=${sortedState}`}
         className="px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:bg-gray-400 cursor-pointer text-center w-full max-w-xs mx-auto"
       >
         イベントを作成
@@ -93,7 +98,7 @@ export const EventList = (props: { eventList: Event[]; initialCurrentPage: numbe
                   <tr key={event.id} className="hover:bg-gray-50 transition-colors">
                     <td className="px-6 py-4 text-sm text-center text-gray-700 whitespace-nowrap">
                       <a
-                        href={`/events/${event.id}?page=${currentPage}&limit=${itemsPerPage}`}
+                        href={`/events/${event.id}?page=${currentPage}&limit=${itemsPerPage}&sorted=${sortedState}`}
                         className="text-blue-700 text-lg cursor-pointer hover:text-blue-900"
                       >
                         {event.title}

@@ -20,6 +20,7 @@ export const AddPlayer = () => {
   // 一覧(/players)のpage/limitを引き回して、追加後に元のページへ戻せるようにする
   const page = useSearchParams().get('page');
   const limit = useSearchParams().get('limit');
+  const sorted = useSearchParams().get('sorted');
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   
@@ -28,7 +29,7 @@ export const AddPlayer = () => {
     if (await addPlayer(data)) {
       alert('プレイヤーが追加されました');
       router.refresh();
-      router.push(`/players?page=${page}&limit=${limit}`);
+      router.push(`/players?page=${page}&limit=${limit}&sorted=${sorted}`);
     } else {
       alert('プレイヤーの追加に失敗しました。');
       setIsLoading(false);
@@ -38,7 +39,7 @@ export const AddPlayer = () => {
   return (
     <div className="flex items-center flex-col gap-4 p-4 md:p-10">
       <PlayerForm formname="追加" defaults={defaultValues} isLoading={isLoading} onSubmit={onSubmit} />
-      <BackButton path={`/players?page=${page}&limit=${limit}`} message="キャンセル" />
+      <BackButton path={`/players?page=${page}&limit=${limit}&sorted=${sorted}`} message="キャンセル" />
     </div>
   )
 }

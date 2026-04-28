@@ -13,7 +13,7 @@ import { CreateRandomTeamsPageButton } from "@/components/buttons/createRandomTe
 
 type DisplayEventProps = {
   params: Promise<{ id: string }>;
-  searchParams?: Promise<{ page?: string; limit?: string }>;
+  searchParams?: Promise<{ page?: string; limit?: string; sorted?: string }>;
 };
 
 export const DisplayEvent = async ({ params, searchParams }: DisplayEventProps) => {
@@ -27,9 +27,10 @@ export const DisplayEvent = async ({ params, searchParams }: DisplayEventProps) 
   const resolvedSearchParams = (await searchParams) ?? {};
   const page = resolvedSearchParams.page ?? '1';
   const limit = resolvedSearchParams.limit ?? '20';
+  const sorted = resolvedSearchParams.sorted ?? 'initial';
 
-  const listQuery = `page=${encodeURIComponent(page)}&limit=${encodeURIComponent(limit)}`;
-  // 通知表示や戻る導線で使うため、詳細ページのURLにもpage/limitを含めたものを作っておく
+  const listQuery = `page=${encodeURIComponent(page)}&limit=${encodeURIComponent(limit)}&sorted=${encodeURIComponent(sorted)}`;
+  // 通知表示や戻る導線で使うため、詳細ページのURLにもpage/limit/sortedを含めたものを作っておく
   const urlWithParams: string = `${url}?${listQuery}`;
 
   if (event === null) {
@@ -66,9 +67,9 @@ export const DisplayEvent = async ({ params, searchParams }: DisplayEventProps) 
         <a href={`${url}/teamDetail?${listQuery}`} className="text-center bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
           チームを追加
         </a>
-        <CreateRandomTeamsPageButton eventId={event.id} />
+        <CreateRandomTeamsPageButton eventId={event.id} page={page} limit={limit} sorted={sorted} />
       </div>
-      <BackButton path={`/events?page=${encodeURIComponent(page)}&limit=${encodeURIComponent(limit)}`} message="戻る" />
+      <BackButton path={`/events?page=${encodeURIComponent(page)}&limit=${encodeURIComponent(limit)}&sorted=${encodeURIComponent(sorted)}`} message="戻る" />
     </div>
   )
 }

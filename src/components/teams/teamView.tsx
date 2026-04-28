@@ -4,13 +4,14 @@ import { Player } from "@/types/player";
 
 export const TeamView = (props: { teamName: string; teamMembers: Player[] }) => {
   const { teamName, teamMembers } = props;
+  const sortedMembers = [...teamMembers].sort((a, b) => a.name.localeCompare(b.name));
   return (
     <div className="from-blue-50 to-indigo-50 rounded-xl border border-blue-200 shadow-lg p-2 w-full max-w-[20rem] h-82 flex flex-col bg-white">
       <h2 className="text-lg font-bold text-center text-gray-800 my-2 pb-1 border-b-2 border-blue-300 truncate px-2">{teamName}</h2>
 
       <div className="space-y-1 flex-1 overflow-y-auto px-2">
-        {teamMembers.length > 0 ? (
-          teamMembers.map((member, index) => (
+        {sortedMembers.length > 0 ? (
+          sortedMembers.map((member, index) => (
             <div
               key={member.id}
               className="flex items-center gap-2 p-1.5 bg-white rounded-lg transition-colors border border-blue-100 shadow-sm"

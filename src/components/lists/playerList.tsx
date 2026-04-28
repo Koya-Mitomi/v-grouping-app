@@ -5,13 +5,24 @@ import { DeletePlayerButton } from "../buttons/deletePlayerButton";
 import { useEffect, useState } from "react";
 import { PaginationControl } from "./paginationControl";
 
-export const PlayerList = (props: { playerList: Player[]; initialCurrentPage: number; initialPageLimit: number }) => {
-  const { playerList, initialCurrentPage, initialPageLimit } = props;
-  const [sortedPlayerList, setSortedPlayerList] = useState<Player[]>(playerList);
-  const [isNameSortButtonClicked, setIsNameSortButtonClicked] = useState(false);
-  const [isPositionSortButtonClicked, setIsPositionSortButtonClicked] = useState(false);
-  const [isLevelSortButtonClicked, setIsLevelSortButtonClicked] = useState(false);
-  const [isYearSortButtonClicked, setIsYearSortButtonClicked] = useState(false);
+export const PlayerList = (props: { playerList: Player[]; initialCurrentPage: number; initialPageLimit: number; initialSortedState: string }) => {
+  const { playerList, initialCurrentPage, initialPageLimit, initialSortedState } = props;
+  const sortedPlayerListById = [...playerList].sort((a, b) => a.id - b.id);
+  const sortedPlayerListByName = [...playerList].sort((a, b) => a.name !== b.name ? a.name.localeCompare(b.name) : a.id - b.id);
+  const sortedPlayerListByPosition = [...playerList].sort((a, b) => a.position !== b.position ? a.position.localeCompare(b.position) : a.id - b.id);
+  const sortedPlayerListByLevel = [...playerList].sort((a, b) => a.level !== b.level ? a.level - b.level : a.id - b.id);
+  const sortedPlayerListByYear = [...playerList].sort((a, b) => a.year !== b.year ? a.year - b.year : a.id - b.id);
+  const initialSortedList = initialSortedState === "name" ? sortedPlayerListByName
+    : initialSortedState === "position" ? sortedPlayerListByPosition
+    : initialSortedState === "level" ? sortedPlayerListByLevel
+    : initialSortedState === "year" ? sortedPlayerListByYear
+    : sortedPlayerListById;
+  const [sortedPlayerList, setSortedPlayerList] = useState<Player[]>(initialSortedList);
+  const [isNameSortButtonClicked, setIsNameSortButtonClicked] = useState(initialSortedState === "name");
+  const [isPositionSortButtonClicked, setIsPositionSortButtonClicked] = useState(initialSortedState === "position");
+  const [isLevelSortButtonClicked, setIsLevelSortButtonClicked] = useState(initialSortedState === "level");
+  const [isYearSortButtonClicked, setIsYearSortButtonClicked] = useState(initialSortedState === "year");
+  const [sortedState, setSortedState] = useState(initialSortedState);
   const [currentPage, setCurrentPage] = useState(initialCurrentPage);
   const [itemsPerPage, setItemsPerPage] = useState(initialPageLimit);
   const totalPages = Math.ceil(sortedPlayerList.length / itemsPerPage);
@@ -36,51 +47,52 @@ export const PlayerList = (props: { playerList: Player[]; initialCurrentPage: nu
   };
 
   const handleSortByName = () => {
-    const sorted = [...sortedPlayerList].sort((a, b) => a.name.localeCompare(b.name));
-    setSortedPlayerList(sorted);
+    setSortedPlayerList(sortedPlayerListByName);
     setIsNameSortButtonClicked(true);
     setIsPositionSortButtonClicked(false);
     setIsLevelSortButtonClicked(false);
     setIsYearSortButtonClicked(false);
+    setSortedState("name");
     setCurrentPage(1);
   };
 
   const handleSortByPosition = () => {
-    const sorted = [...sortedPlayerList].sort((a, b) => a.position.localeCompare(b.position));
-    setSortedPlayerList(sorted);
+    setSortedPlayerList(sortedPlayerListByPosition);
     setIsNameSortButtonClicked(false);
     setIsPositionSortButtonClicked(true);
     setIsLevelSortButtonClicked(false);
     setIsYearSortButtonClicked(false);
+    setSortedState("position");
     setCurrentPage(1);
   };
 
   const handleSortByLevel = () => {
-    const sorted = [...sortedPlayerList].sort((a, b) => a.level - b.level);
-    setSortedPlayerList(sorted);
+    setSortedPlayerList(sortedPlayerListByLevel);
     setIsNameSortButtonClicked(false);
     setIsPositionSortButtonClicked(false);
     setIsLevelSortButtonClicked(true);
     setIsYearSortButtonClicked(false);
+    setSortedState("level");
     setCurrentPage(1);
   };
 
   const handleSortByYear = () => {
-    const sorted = [...sortedPlayerList].sort((a, b) => a.year - b.year);
-    setSortedPlayerList(sorted);
+    setSortedPlayerList(sortedPlayerListByYear);
     setIsNameSortButtonClicked(false);
     setIsPositionSortButtonClicked(false);
     setIsLevelSortButtonClicked(false);
     setIsYearSortButtonClicked(true);
+    setSortedState("year");
     setCurrentPage(1);
   };
 
   const handleResetSort = () => {
-    setSortedPlayerList(playerList);
+    setSortedPlayerList(sortedPlayerListById);
     setIsNameSortButtonClicked(false);
     setIsPositionSortButtonClicked(false);
     setIsLevelSortButtonClicked(false);
     setIsYearSortButtonClicked(false);
+    setSortedState("initial");
     setCurrentPage(1);
   };
 
@@ -144,7 +156,7 @@ export const PlayerList = (props: { playerList: Player[]; initialCurrentPage: nu
                     <td className="px-4 md:px-6 py-4 text-sm text-center text-gray-600 whitespace-nowrap">{player.year}</td>
                     <td className="px-4 md:px-6 py-4 text-sm text-center text-gray-600 whitespace-nowrap">{player.gender}</td>
                     <td className="px-4 md:px-6 py-4 text-center">
-                      <a href={`/players/edit/${player.id}?page=${currentPage}&limit=${itemsPerPage}`} className="text-blue-500 cursor-pointer hover:text-blue-700 whitespace-nowrap">
+                      <a href={`/players/edit/${player.id}?page=${currentPage}&limit=${itemsPerPage}&sorted=${sortedState}`} className="text-blue-500 cursor-pointer hover:text-blue-700 whitespace-nowrap">
                         編集
                       </a>
                     </td>
@@ -165,7 +177,7 @@ export const PlayerList = (props: { playerList: Player[]; initialCurrentPage: nu
 
       <div className="flex flex-col items-center gap-4 w-full mt-2">
         <PaginationControl currentPage={currentPage} totalPages={totalPages} onPageChange={onPageChange} />
-        <a href={`/players/add?page=${currentPage}&limit=${itemsPerPage}`} className="px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors cursor-pointer text-center font-semibold shadow-md">
+        <a href={`/players/add?page=${currentPage}&limit=${itemsPerPage}&sorted=${sortedState}`} className="px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors cursor-pointer text-center font-semibold shadow-md">
           プレイヤーを追加する
         </a>
       </div>

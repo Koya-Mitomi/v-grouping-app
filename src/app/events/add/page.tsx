@@ -15,6 +15,7 @@ export const AddEvent = () => {
   const searchParams = useSearchParams();
   const page = searchParams.get('page') ?? '1';
   const limit = searchParams.get('limit') ?? '20';
+  const sorted = searchParams.get('sorted') ?? 'initial';
   
   const onSubmit: SubmitHandler<EventInputs> = async (data) => {
     setIsLoading(true);
@@ -22,7 +23,7 @@ export const AddEvent = () => {
     if (eventId !== null) {
       alert('イベントが追加されました');
       router.refresh();
-      router.push(`/events/${eventId}?page=${encodeURIComponent(page)}&limit=${encodeURIComponent(limit)}`);
+      router.push(`/events/${eventId}?page=${encodeURIComponent(page)}&limit=${encodeURIComponent(limit)}&sorted=${encodeURIComponent(sorted)}`);
     } else {
       alert('イベントの追加に失敗しました。');
       setIsLoading(false);
@@ -32,7 +33,7 @@ export const AddEvent = () => {
   return (
     <div className="p-4 md:p-10 flex flex-col items-center gap-4">
       <EventForm formname="イベントを作成" defaults={{ title: "" }} isLoading={isLoading} onSubmit={onSubmit} />
-      <BackButton path={`/events?page=${encodeURIComponent(page)}&limit=${encodeURIComponent(limit)}`} message="キャンセル" />
+      <BackButton path={`/events?page=${encodeURIComponent(page)}&limit=${encodeURIComponent(limit)}&sorted=${encodeURIComponent(sorted)}`} message="キャンセル" />
     </div>
   )
 }
