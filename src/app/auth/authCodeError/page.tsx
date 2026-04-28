@@ -39,7 +39,7 @@ export default function AuthCodeError() {
 
         <div className="text-xs text-gray-400 border-t border-gray-50 pt-6 mt-6">
           <p>
-            解決しない場合は、ブラウザのキャッシュをクリアして再度お試しいただくか、サポートまでお問い合わせください。
+            解決しない場合は、ブラウザのキャッシュをクリアして再度お試しください。
           </p>
         </div>
       </div>
