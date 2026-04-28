@@ -43,12 +43,14 @@ export const DisplayEvent = async ({ params, searchParams }: DisplayEventProps) 
     }))
   );
 
+  const sortedTeamsWithMembers = teamsWithMembers.sort((a, b) => a.team.team_name.localeCompare(b.team.team_name));
+
   return (
     <div className="flex items-center flex-col gap-4 px-4 py-8 md:p-10">
       <EventTitle eventId={event.id} initialTitle={event.title} />
       <NotificationHandler url={urlWithParams} />
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-16 w-full max-w-7xl justify-items-center">
-        {teamsWithMembers.map(({ team, teamMembers }) => (
+        {sortedTeamsWithMembers.map(({ team, teamMembers }) => (
           <div key={team.id} className="flex flex-col items-center w-full">
             <TeamView key={team.id} teamName={team.team_name} teamMembers={teamMembers} />
             <div className="flex gap-2 mt-2 justify-center">
