@@ -15,7 +15,7 @@ export const EventList = (props: { eventList: Event[]; initialCurrentPage: numbe
 
   const [currentPage, setCurrentPage] = useState(initialCurrentPage);
   const [itemsPerPage, setItemsPerPage] = useState(initialPageLimit);
-  const totalPages = Math.ceil(sortedEventList.length / itemsPerPage);
+  const totalPages = Math.ceil(sortedEventList.length / itemsPerPage) || 1;
   const startIndex = (currentPage - 1) * itemsPerPage;
   const displayList = sortedEventList.slice(startIndex, startIndex + itemsPerPage);
 
