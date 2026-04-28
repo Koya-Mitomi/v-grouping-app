@@ -17,7 +17,7 @@ export const PlayerSelect = (props: { initialSelectedIds: number[]; players: Pla
 
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(20);
-  const totalPages = Math.ceil(sortedPlayers.length / itemsPerPage);
+  const totalPages = Math.ceil(sortedPlayers.length / itemsPerPage) || 1;
   const startIndex = (currentPage - 1) * itemsPerPage;
   const displayList = sortedPlayers.slice(startIndex, startIndex + itemsPerPage);
 

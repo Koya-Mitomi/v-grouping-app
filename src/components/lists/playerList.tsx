@@ -25,7 +25,7 @@ export const PlayerList = (props: { playerList: Player[]; initialCurrentPage: nu
   const [sortedState, setSortedState] = useState(initialSortedState);
   const [currentPage, setCurrentPage] = useState(initialCurrentPage);
   const [itemsPerPage, setItemsPerPage] = useState(initialPageLimit);
-  const totalPages = Math.ceil(sortedPlayerList.length / itemsPerPage);
+  const totalPages = Math.ceil(sortedPlayerList.length / itemsPerPage) || 1;
   const startIndex = (currentPage - 1) * itemsPerPage;
   const displayList = sortedPlayerList.slice(startIndex, startIndex + itemsPerPage);
 
