@@ -28,9 +28,6 @@ export async function signUp(user_name: string, email: string, password: string)
     console.error('Error signing up:', signUpError);
     return false;
   }
-
-  // プロフィール（profilesテーブル）の挿入はDBトリガーが自動で行うため
-  // ここでの insert 処理は不要になりました。
-
+  
   return true;
 }
