@@ -44,7 +44,7 @@ export const DisplayEvent = async ({ params, searchParams }: DisplayEventProps) 
     }))
   );
 
-  const sortedTeamsWithMembers = teamsWithMembers.sort((a, b) => a.team.team_name.localeCompare(b.team.team_name));
+  const sortedTeamsWithMembers = teamsWithMembers.sort((a, b) => a.team.id - b.team.id);
 
   return (
     <div className="flex items-center flex-col gap-4 px-4 py-8 md:p-10">
