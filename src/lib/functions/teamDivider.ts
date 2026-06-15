@@ -1,5 +1,11 @@
 import { Player } from "@/types/player";
 
+// スワップ試行回数の係数（プレイヤー数に乗じる）
+const SWAP_ATTEMPTS_MULTIPLIER = 50;
+
+// レベル制約: 戦力差の許容値（初期値からの増加上限）
+const LEVEL_SPREAD_TOLERANCE = 0.2;
+
 // チーム自動分け関数
 export function randomDivideTeams(
   players: Player[],  
@@ -89,8 +95,9 @@ export function randomDivideTeams(
     teams[minTeamIndex].push(player);
   });
 
-  const totalSwaps = totalPlayers * 50; // プレイヤー数の50倍のスワップを試みる
+  const totalSwaps = totalPlayers * SWAP_ATTEMPTS_MULTIPLIER; // スワップ
   const initialSpread = getSpread(teams);
+  console.log(`Initial spread: ${initialSpread.toFixed(2)}`);
   for (let i = 0; i < totalSwaps; i++) {
     teams = swapPlayersBetweenTeams(
       teams, 
@@ -101,6 +108,8 @@ export function randomDivideTeams(
       initialSpread
     );
   }
+  const finalSpread = getSpread(teams);
+  console.log(`Final spread: ${finalSpread.toFixed(2)}`);
 
   return teams;
 }
@@ -220,9 +229,9 @@ export const swapPlayersBetweenTeams = (
     });
     
     const newSpread = Math.max(...currentAvgs) - Math.min(...currentAvgs);
-    
-    // 戦力差が初期値より0.5以上大きくなるならスワップしない
-    if (newSpread > initialSpread + 0.5) return teams;
+
+    // 戦力差が初期値より許容値以上大きくなるならスワップしない
+    if (newSpread > initialSpread + LEVEL_SPREAD_TOLERANCE) return teams;
   }
 
   const temp = teamA[pIdxA];
