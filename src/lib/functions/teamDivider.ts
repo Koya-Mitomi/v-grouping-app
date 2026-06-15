@@ -107,7 +107,6 @@ export function randomDivideTeams(
       initialSpread
     );
   }
-  const finalSpread = getSpread(teams);
 
   return teams;
 }
