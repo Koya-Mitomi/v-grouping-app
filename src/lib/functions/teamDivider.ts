@@ -97,7 +97,6 @@ export function randomDivideTeams(
 
   const totalSwaps = totalPlayers * SWAP_ATTEMPTS_MULTIPLIER; // スワップ
   const initialSpread = getSpread(teams);
-  console.log(`Initial spread: ${initialSpread.toFixed(2)}`);
   for (let i = 0; i < totalSwaps; i++) {
     teams = swapPlayersBetweenTeams(
       teams, 
@@ -109,7 +108,6 @@ export function randomDivideTeams(
     );
   }
   const finalSpread = getSpread(teams);
-  console.log(`Final spread: ${finalSpread.toFixed(2)}`);
 
   return teams;
 }
